@@ -1,15 +1,13 @@
 # Pantry Project
 
-* [PantryManager](/Pantry/microservice.pantrymanager/README.md)
-* [ProductManager](/Pantry/microservice.productmanager/README.md)
-* [RecipeManager](/Pantry/microservice.recipemanager/README.md)
-* [Scheduler](/Pantry/microservice.scheduler/README.md)
-* [Platform](/Pantry/platform/README.md)
-
-
-## DDD
+Microservice.PantryManager
+Microservice.ProductManager
+Microservice.RecipeManager
+Platform
 
 Hexagonal (or onion) architecture.
+
+## DDD
 
 Presentation(Api)
 Application
@@ -45,12 +43,6 @@ Cost of memory vs lazy loading?
 There are two main characteristics for value objects:
 * They have no identity.
 * They are immutable
-
-## PATTERN: PLATFORM TEAM
-
-Create a team to be in charge of architecting, building, and running a single, consistent,and stable cloud native platform for use by the entire organization so that developers canfocus on building applications instead of configuring infrastructure
-
-https://www.cnpatterns.org/organization-culture/platform-team
 
 ## DTO
 
@@ -118,7 +110,7 @@ It's important to mention that you might sometimes want to propagate events acro
 
 Current Approach:
 Dapr As EventBus and Dapr Apis to Handle Integration Events
-Dapr user CloudEvents 1.0 specification
+CloudEvents 1.0 specification
 `tye run` to lauch Dapr with all microservices
 
 -Links:
@@ -130,8 +122,8 @@ https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-development/dotn
 
 ## Test
 
-Unit Test
-Integration Test
+unit
+integration
 
 -Links:
 https://github.com/DamianEdwards/MinimalApiPlayground
@@ -142,19 +134,10 @@ https://github.com/DamianEdwards/MinimalApiPlayground
 Current Approach:
 .NET Middleware => `UseExcepitonHandler` with Minimal Api
 
-Current Approach:
-Flow Control for App Layer using FluentResults
-
-Approaches:
+Other Approaches:
 Filter
 Custom Middleware
-
-
-https://enterprisecraftsmanship.com/posts/advanced-error-handling-techniques/
-https://enterprisecraftsmanship.com/posts/combining-asp-net-core-attributes-with-value-objects/
-https://vkhorikov.medium.com/always-valid-domain-model-706e5f3d24b0
-https://codeopinion.com/handling-http-api-errors-with-problem-details/
-https://github.com/altmann/FluentResults
+Change Flow Control
 
 ### Filter and Middleware
 
@@ -169,8 +152,10 @@ But if you require the context of MVC and you want to operate against actions th
 Curent Approach:
 Exceptions flow
 
-Current Approach:
-Flow Control for App Layer using FluentResults
+Other approachs:
+Oneof ? Good case Instead of throw excption?
+FluentResult
+ErrorOr
 
 
 ## Mapping
@@ -212,6 +197,7 @@ Query
 dotnet tool install -g Microsoft.Tye --version "0.11.0-alpha.22111.1"
 
 tye run .\Microservice.PantryManager.csproj
+tye run .\Microservice.PantryManager.csproj
 or
 Create yaml with services
 tye run
@@ -224,72 +210,33 @@ https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks/issues/712
 https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks/blob/master/README.md
 https://github.com/dotnet/tye/blob/main/docs/reference/service_discovery.md
 
-## Metrics
-
---Prometheus
-https://github.com/prometheus-net/prometheus-net
-
-yml in the directory
-docker run --rm -it --name prometheus -p 9090:9090  -v $PWD/prometheus.yml:/etc/prometheus/prometheus.yml  prom/prometheus  --config.file=/etc/prometheus/prometheus.yml  --log.level=debug  --enable-feature=exemplar-storage
-or
-docker-compose up
-
---Grafana
-
-docker run -d -p 3000:3000 grafana/grafana-enterprise
-or
-docker-compose up
-Prometheus data source in grafana = host.docker.internal:9090
-
-## Log
-
-Serilog is a diagnostic logging library for .NET applications.
-ElasticSearch is an opensource, free leading analytics solution.
-Kibana is an open source data visualization user interface which is used with Elasticsearch database.
-
-If we are building an application,where we need logging and we all log errors, but how often are those error logs stored in a text file that is inaccessible somewhere on a server?
-With ElasticSearch we can make any kind of logging easy, accessible and searchable.
-
-docker-compose up
-add index logstash-*
-
-
-## Identity Server
-
-https://oauth.net/2/grant-types/
-https://docs.duendesoftware.com/identityserver/v5/quickstarts/0_overview/
-https://dev.to/eduardstefanescu/aspnet-core-swagger-documentation-with-bearer-authentication-40l6
-
-
-curl -X POST -H "content-type: application/x-www-form-urlencoded" -H "Cache-Control: no-cache" -d 'client_id=test-client&client_secret=test-secret&grant_type=client_credentials&scope=pantry' -k "https://localhost:50001/connect/token"
-
-
-## GraphQL
-
-GraphQL is a query language for APIs and a runtime for fulfilling those queries with your existing data. 
-GraphQL provides a complete and understandable description of the data in your API, gives clients the power to ask for exactly what they need and nothing more, makes it easier to evolve APIs over time, and enables powerful developer tools.
-
-https://chillicream.com/docs/hotchocolate/v13/fetching-data/fetching-from-databases
-
-
-#######################################################################################################################################################################################################################################################################
+###########################################################################################################################################################################################################################################################################################################
 
 Todo
+
+InputValidation - flunetvalidation
+second approach ErrorOr in different MS.....
+
+Prometheus
+Identity Server (iodc)
+Logg
+GraphQL
 Sagas
-Tracing
-Multi-Tenant
-github actions
-helm+K8s
+
+
+## Tracing - Latter
 
 In order to make a system observable, it must be instrumented. That is, the code must emit traces, metrics, and logs.
 The instrumented data must then be sent to an Observability back-end.
 OpenTelemetry is not an observability back-end like Jaeger or Prometheus. Instead, it supports exporting data to a variety of open source and commercial back-ends.
 
- metrics and spans
+logs, metrics and spans
 
-jaeger
+latter
+
+
+docker run -p 9090:9090 prom/prometheus
 docker run -d --name jaeger  -e COLLECTOR_ZIPKIN_HOST_PORT=:9411  -e COLLECTOR_OTLP_ENABLED=true -p 6831:6831/udp  -p 6832:6832/udp  -p 5778:5778  -p 16686:16686 -p 4317:4317  -p 4318:4318  -p 14250:14250  -p 14268:14268  -p 14269:14269  -p 9411:9411  jaegertracing/all-in-one:1.43
 
 
 ### Event Sourcing
-### Event Driven

@@ -1,15 +1,13 @@
 # Pantry Project
 
-* [PantryManager](/Pantry/microservice.pantrymanager/README.md)
-* [ProductManager](/Pantry/microservice.productmanager/README.md)
-* [RecipeManager](/Pantry/microservice.recipemanager/README.md)
-* [Scheduler](/Pantry/microservice.scheduler/README.md)
-* [Platform](/Pantry/platform/README.md)
-
-
-## DDD
+Microservice.PantryManager
+Microservice.ProductManager
+Microservice.RecipeManager
+Platform
 
 Hexagonal (or onion) architecture.
+
+## DDD
 
 Presentation(Api)
 Application
@@ -263,18 +261,10 @@ https://dev.to/eduardstefanescu/aspnet-core-swagger-documentation-with-bearer-au
 
 curl -X POST -H "content-type: application/x-www-form-urlencoded" -H "Cache-Control: no-cache" -d 'client_id=test-client&client_secret=test-secret&grant_type=client_credentials&scope=pantry' -k "https://localhost:50001/connect/token"
 
-
-## GraphQL
-
-GraphQL is a query language for APIs and a runtime for fulfilling those queries with your existing data. 
-GraphQL provides a complete and understandable description of the data in your API, gives clients the power to ask for exactly what they need and nothing more, makes it easier to evolve APIs over time, and enables powerful developer tools.
-
-https://chillicream.com/docs/hotchocolate/v13/fetching-data/fetching-from-databases
-
-
 #######################################################################################################################################################################################################################################################################
 
 Todo
+GraphQL
 Sagas
 Tracing
 Multi-Tenant
