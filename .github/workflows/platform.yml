@@ -16,8 +16,8 @@ jobs:
 
     steps:
       - name: Run Unit Tests
-        uses: ./.github/workflows/test/unit-test.yml
+        uses: ./.github/workflows/unit-test.yml
         with:
-          docker_file_path: .
+          docker_file_path: test
 
       
