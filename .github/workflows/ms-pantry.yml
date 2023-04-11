@@ -28,7 +28,7 @@ jobs:
     - name: Change Directory
       run: cd microservices/microservice.pantrymanager/src/Microservice.PantryManager
     - name: Restore dependencies
-      run: dotnet restore
+      run: dir
     - name: Build
       run: dotnet build --no-restore
 
