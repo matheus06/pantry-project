@@ -10,5 +10,5 @@ runs:
   using: composite
   steps:
     - id: get-CheckAuth-arn
-      run: echo "::set-output name=CheckAuth-arn::$CHECKAUTH_ARN"
+      run: echo "blblblblbll"
       shell: bash
