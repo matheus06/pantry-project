@@ -1,0 +1,11 @@
+name: "unit test"
+
+inputs:
+  docker_file_path:
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - id: get-CheckAuth-arn
+      run: echo "${{ inputs.docker_file_path }}"

@@ -15,8 +15,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: checkout source code
+        uses: actions/checkout@v2
       - name: Run Unit Tests
-        uses: ./.github/workflows/unit-test.yml
+        uses: ./.github/actions/unit-test
         with:
           docker_file_path: test
 
