@@ -1,9 +1,9 @@
 # Pantry Project
 
-* [Microservice PantryManager](/microservices/microservice.pantrymanager/README.md)
-* [Microservice ProductManager](/microservices/microservice.productmanager/README.md)
-* [Microservice RecipeManager](/microservices/microservice.recipemanager/README.md)
-* [Microservice Scheduler](/microservices/microservice.scheduler/README.md)
+* [Microservice PantryManager](/microservices/microservice.pantrymanager)
+* [Microservice ProductManager](/microservices/microservice.productmanager)
+* [Microservice RecipeManager](/microservices/microservice.recipemanager)
+* [Microservice Scheduler](/microservices/microservice.scheduler)
 * [Platform](/Pantry/platform/README.md)
 
 
