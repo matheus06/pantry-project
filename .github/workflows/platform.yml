@@ -8,7 +8,7 @@ on:
     branches:
       - main
     paths:
-      - microservices/platform/src/Platform.Test**
+      - microservices/platform/test/Platform.Test**
     
 jobs:
   build:
