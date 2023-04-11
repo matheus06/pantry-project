@@ -11,3 +11,4 @@ COPY ./microservices/platform/test/Platform.Test/ ./
 RUN dotnet restore
 RUN dotnet build
 RUN dotnet test
+RUN dotnet test
