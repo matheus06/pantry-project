@@ -1,0 +1,23 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: Test Platform
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - microservices/platform/src/Platform.Test**
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: run unit tests
+        uses: ./.github/workflows/unit-test.yml
+        with:
+          docker_file_path: .
+
+      
