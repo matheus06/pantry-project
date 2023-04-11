@@ -4,7 +4,7 @@
 * [Microservice ProductManager](/microservices/microservice.productmanager)
 * [Microservice RecipeManager](/microservices/microservice.recipemanager)
 * [Microservice Scheduler](/microservices/microservice.scheduler)
-* [Platform](/Pantry/platform/README.md)
+* [Platform](/microservices/platform)
 
 
 ## Microservice Layers
