@@ -20,6 +20,6 @@ jobs:
       - name: Run Unit Tests
         uses: ./.github/actions/unit-test
         with:
-          docker_file_path: test
+          edge-stack-name: test
 
       
