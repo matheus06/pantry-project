@@ -1,20 +1,16 @@
 # Pantry Project
 
-* [PantryManager](/Pantry/microservice.pantrymanager/README.md)
-* [ProductManager](/Pantry/microservice.productmanager/README.md)
-* [RecipeManager](/Pantry/microservice.recipemanager/README.md)
-* [Scheduler](/Pantry/microservice.scheduler/README.md)
+* [Microservice PantryManager](/microservices/microservice.pantrymanager/README.md)
+* [Microservice ProductManager](/microservices/microservice.productmanager/README.md)
+* [Microservice RecipeManager](/microservices/microservice.recipemanager/README.md)
+* [Microservice Scheduler](/microservices/microservice.scheduler/README.md)
 * [Platform](/Pantry/platform/README.md)
 
 
-## DDD
+## Microservice Layers
 
-Hexagonal (or onion) architecture.
 
-Presentation(Api)
-Application
-Domain
-Infra
+![Layers](/imgs/layers.png)
 
 ## DDD Aggregate
 
