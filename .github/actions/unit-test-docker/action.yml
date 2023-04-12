@@ -11,4 +11,4 @@ outputs:
     description: 'Report of the Unit Test Run'
 runs:
   using: 'docker'
-  image: '${{inputs.path-to-docker-file }}'
+  image: '${{ inputs.path-to-docker-file }}'
