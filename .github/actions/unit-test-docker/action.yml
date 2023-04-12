@@ -7,4 +7,4 @@ inputs:
     required: true
 runs:
   using: 'docker'
-  image: '../../../microservices/platform/test/Platform.Test/Dockerfile'
+  image: '../../../ ${{ inputs.path-to-docker-file }}'
