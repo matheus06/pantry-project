@@ -6,11 +6,5 @@ inputs:
     description: 'path to docker file'
     required: true
 runs:
-  using: "composite"
-  steps:
-    - run: echo Hello ${{ inputs.path-to-docker-file }}.
-      shell: bash
-
-# runs:
-#   using: 'docker'
-#   image: '../../../microservices/platform/test/Platform.Test/Dockerfile'
+  using: 'docker'
+  image: '../../../${{ inputs.path-to-docker-file }}'
