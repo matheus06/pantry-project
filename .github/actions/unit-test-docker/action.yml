@@ -5,10 +5,6 @@ inputs:
   path-to-docker-file:
     description: 'path to docker file'
     required: true
-
-outputs:
-  report: # id of output
-    description: 'Report of the Unit Test Run'
 runs:
   using: 'docker'
   image: '${{ inputs.path-to-docker-file }}'
