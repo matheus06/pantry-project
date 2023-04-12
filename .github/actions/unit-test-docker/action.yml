@@ -8,3 +8,4 @@ inputs:
 runs:
   using: 'docker'
   image: '../../../microservices/platform/test/Platform.Test/Dockerfile'
+  pre-entrypoint: 'setup.sh'
