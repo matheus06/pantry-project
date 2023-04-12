@@ -25,7 +25,7 @@ jobs:
       - name: run unit tests
         uses: ./.github/actions/unit-test-docker
         with:
-          path-to-docker-file: test/Microservice.Recommend.Tests/Dockerfile
+          path-to-docker-file: microservices/platform/test/Platform.Test/Dockerfile
 
       - name: post test report
         if: always()
