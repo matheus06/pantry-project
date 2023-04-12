@@ -22,4 +22,17 @@ jobs:
         with:
           edge-stack-name: test
 
+      - name: run unit tests
+        uses: ./.github/actions/unit-test-docker
+        with:
+          path-to-docker-file: test/Microservice.Recommend.Tests/Dockerfile
+
+      - name: post test report
+        if: always()
+        uses: dorny/test-reporter@v1
+        with:
+          name: unit tests report
+          path: ./results/*.xml
+          reporter: dotnet-trx
+
       
