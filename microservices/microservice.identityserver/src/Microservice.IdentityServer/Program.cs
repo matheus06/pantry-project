@@ -1,5 +1,8 @@
 using Microservice.IdentityServer;
+using Microservice.IdentityServer.Infra;
+using Microsoft.EntityFrameworkCore;
 using Platform;
+using Platform.Infra.Database;
 using Serilog;
 using Serilog.Exceptions;
 using Serilog.Sinks.Elasticsearch;
@@ -8,16 +11,22 @@ var builder = WebApplication.CreateBuilder(args);
 
 var serviceName = builder.Configuration["MicroserviceSettings:Service"];
 
-builder.Services.AddIdentityServer(options =>
+var migrationsAssembly = typeof(Program).Assembly.GetName().Name;
+builder.Services.AddIdentityServer()
+    .AddConfigurationStore(options =>
     {
-        // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
-        options.EmitStaticAudienceClaim = true;
+        options.ConfigureDbContext = b => b.UseSqlServer(builder.Configuration.GetConnectionString("IdentityServerContext"),
+            sql => sql.MigrationsAssembly(migrationsAssembly));
     })
-    .AddInMemoryIdentityResources(Config.IdentityResources)
-    .AddInMemoryApiScopes(Config.ApiScopes)
-    .AddInMemoryApiResources(Config.ApiResources)
-    .AddInMemoryClients(Config.Clients)
+    .AddOperationalStore(options =>
+    {
+        options.ConfigureDbContext = b => b.UseSqlServer(builder.Configuration.GetConnectionString("IdentityServerContext"),
+            sql => sql.MigrationsAssembly(migrationsAssembly));
+    })
     .AddTestUsers(TestUsers.Users);
+
+//Add IoC
+builder.Services.AddIoC();
 
 //Health Checks
 builder.Services.AddHealthChecks();
@@ -49,6 +58,13 @@ app.UseIdentityServer();
 
 app.ConfigureBaseApplicationBuilders();
 app.ConfigureBaseEndpointBuilders();
+
+//Initialize DB
+using var scope = app.Services.CreateScope();
+var services = scope.ServiceProvider;
+services.GetRequiredService<DbInitializer>().Run();
+
+app.InitializeDatabase();
 
 app.Run();
 

@@ -1,6 +1,8 @@
 # Microservice Product
 
 
+## Tech
+
 * .Net 7
 * Domain Layer using Exceptions, App Layer using Error Flow.
 * Input validation using FluentValidation and generic ValidationBehavior for all Commands and Queries.

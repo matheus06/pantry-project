@@ -1,6 +1,8 @@
 # Microservice Pantry
 
 
+## Tech
+
 * .Net 7
 * Domain Layer with Exceptions and .NET Middleware as error Handler => `UseExcepitonHandler` with Minimal Api.
 * App Layer using Custom exceptions and .NET Middleware as error Handler => `UseExcepitonHandler` with Minimal Api.

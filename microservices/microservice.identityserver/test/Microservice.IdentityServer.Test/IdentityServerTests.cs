@@ -1,15 +1,15 @@
 ﻿using System.Net;
+using Duende.IdentityServer.EntityFramework.DbContexts;
 using IdentityModel.Client;
-using Microservice.IdentityServer.Infra.Database;
 using Platform.Tests;
 
 namespace Microservice.IdentityServer.Test;
 
-public class IdentityServerTests : IClassFixture<CustomWebApplicationFactory<Program, IdentityServerContext>>
+public class IdentityServerTests : IClassFixture<CustomWebApplicationFactory<Program, PersistedGrantDbContext>>
 {
-    private readonly CustomWebApplicationFactory<Program,IdentityServerContext> _factory;
+    private readonly CustomWebApplicationFactory<Program,PersistedGrantDbContext> _factory;
     
-    public IdentityServerTests(CustomWebApplicationFactory<Program,IdentityServerContext> factory)
+    public IdentityServerTests(CustomWebApplicationFactory<Program,PersistedGrantDbContext> factory)
     {
         _factory = factory;
     }
