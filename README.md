@@ -6,9 +6,7 @@
 * [Microservice Scheduler](/microservices/microservice.scheduler)
 * [Platform](/microservices/platform)
 
-
 ## Microservice Layers
-
 
 ![Layers](/imgs/layers.png)
 
@@ -19,14 +17,17 @@ Aggregates are one of the more challenging aspects of tactical modeling. Develop
 The aggregate pattern discusses composition and alludes to information hiding. It also discusses consistency boundaries and transactions.
 
 Rule: Model True Invariants In Consistency Boundaries
+
 * An invariant is a business rule that must always be consistent
 * When the transaction commits, everything inside one boundary must be consistent.
 * Aggregates are chiefly about consistency boundaries and not driven by a desire to design object graphs.
 
 Rule: Design Small Aggregates
+
 * Many as possible?
 
 Rule: Reference Other Aggregates By Identity
+
 * Aggregates wiht ingerred object references are thus automatically smaller because references are never eagerly.
 * Having am application service resolve depndencies frees the aggregate from relying on either a repository or a domain service.
 
@@ -35,10 +36,10 @@ Rule: User Eventual Consistency Outside the Boundary
 Cost of memory vs lazy loading?
     * BOTE: Estimating Cost
 
-
 ### DDD Value Objects
 
 There are two main characteristics for value objects:
+
 * They have no identity.
 * They are immutable
 
@@ -61,7 +62,6 @@ DTO on Application Layer
     * Your API and View Models Should Not Reference Domain Models
     * By using separate API models, you can ensure that your API is as simple as possible, making your consumers’ lives easier.
 
-
 ## Validations
 
 An invariant violation in the domain model is an exceptional situation and should be met with throwing an exception.
@@ -72,7 +72,6 @@ When the data enters the domain model boundary, it is assumed to be valid and an
 On the other hand, there’s nothing exceptional in external input being incorrect. You shouldn’t throw exceptions in such cases and instead should use a Result class.
 
 To remove text messages from the domain layer, use error codes instead of text and convert those code to text in the presentation layer
-
 
 Current Approach:
 Domain Layer and AppLayer
@@ -93,6 +92,7 @@ It can be useful at times but falls short when the side effects of processing th
 Consumer of the raised domain event should send notification emails. By sending notification emails before ensuring the database transaction is completed, you are opening the application for potential inconsistency issues. (Email sent but transaction failed)
 
 Other approachs:
+
 - Committing before dispatching
 You can still run into inconsistencies.
 If your email grid fails to accept the notification email, you will end up with a submitted order but with no confirmation email.
@@ -214,6 +214,9 @@ tye run
 
 ## Health Checks
 
+Readiness indicates if the app is running normally but isn't ready to receive requests.
+Liveness indicates if an app has crashed and must be restarted.
+
 https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/health-checks?view=aspnetcore-7.0
 https://learn.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/monitor-app-health
 https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks/issues/712
@@ -249,16 +252,13 @@ With ElasticSearch we can make any kind of logging easy, accessible and searchab
 docker-compose up
 add index logstash-*
 
-
 ## Identity Server
 
 https://oauth.net/2/grant-types/
 https://docs.duendesoftware.com/identityserver/v5/quickstarts/0_overview/
 https://dev.to/eduardstefanescu/aspnet-core-swagger-documentation-with-bearer-authentication-40l6
 
-
 curl -X POST -H "content-type: application/x-www-form-urlencoded" -H "Cache-Control: no-cache" -d 'client_id=test-client&client_secret=test-secret&grant_type=client_credentials&scope=pantry' -k "https://localhost:50001/connect/token"
-
 
 ## GraphQL
 
@@ -266,6 +266,20 @@ GraphQL is a query language for APIs and a runtime for fulfilling those queries 
 GraphQL provides a complete and understandable description of the data in your API, gives clients the power to ask for exactly what they need and nothing more, makes it easier to evolve APIs over time, and enables powerful developer tools.
 
 https://chillicream.com/docs/hotchocolate/v13/fetching-data/fetching-from-databases
+
+## Argo CD
+
+Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes.
+Argo CD follows the GitOps pattern of using Git repositories as the source of truth for defining the desired application state.
+
+Used:
+
+* helm charts
+
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+choco install argocd-cli
+kubectl port-forward svc/argocd-server -n argocd 8080:443
+argocd admin initial-password -n argocd
 
 
 #######################################################################################################################################################################################################################################################################
@@ -289,3 +303,5 @@ docker run -d --name jaeger  -e COLLECTOR_ZIPKIN_HOST_PORT=:9411  -e COLLECTOR_O
 
 ### Event Sourcing
 ### Event Driven
+
+

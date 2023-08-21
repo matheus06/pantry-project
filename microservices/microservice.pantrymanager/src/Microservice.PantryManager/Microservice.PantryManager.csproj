@@ -10,18 +10,14 @@
     <ItemGroup>
       <PackageReference Include="FluentValidation" Version="11.5.1" />
       <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.5.1" />
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="7.0.10" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.4" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.4" />
+      <PackageReference Include="Microsoft.Identity.Web" Version="2.13.3" />
     </ItemGroup>
        
     <ItemGroup>
       <ProjectReference Include="..\..\..\platform\src\Platform\Platform.csproj" />
-    </ItemGroup>
-       
-    <ItemGroup>
-      <Folder Include="Application\DomainEventHandlers" />
-      <Folder Include="Domain\Common" />
-      <Folder Include="Domain\Events" />
     </ItemGroup>
 
 </Project>

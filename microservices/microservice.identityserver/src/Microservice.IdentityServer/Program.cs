@@ -1,6 +1,7 @@
 using Microservice.IdentityServer;
 using Microservice.IdentityServer.Infra;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Platform;
 using Platform.Infra.Database;
 using Serilog;
@@ -29,7 +30,12 @@ builder.Services.AddIdentityServer()
 builder.Services.AddIoC();
 
 //Health Checks
-builder.Services.AddHealthChecks();
+builder.Services.AddHealthChecks()
+    // Add a health check for a SQL Server database
+    .AddCheck(
+        "database-identity-check",
+        new SqlConnectionHealthCheck(builder.Configuration.GetConnectionString("IdentityServerContext")),
+        HealthStatus.Unhealthy);
 
 //Serilog and ElasticSearch
 var elasticSearchUri = builder.Configuration["ElasticConfiguration:Uri"];
@@ -56,13 +62,13 @@ var app = builder.Build();
 
 app.UseIdentityServer();
 
-app.ConfigureBaseApplicationBuilders();
+//app.ConfigureBaseApplicationBuilders();
 app.ConfigureBaseEndpointBuilders();
 
 //Initialize DB
-using var scope = app.Services.CreateScope();
-var services = scope.ServiceProvider;
-services.GetRequiredService<DbInitializer>().Run();
+// using var scope = app.Services.CreateScope();
+// var services = scope.ServiceProvider;
+// services.GetRequiredService<DbInitializer>().Run();
 
 app.InitializeDatabase();
 
