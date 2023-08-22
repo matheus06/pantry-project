@@ -69,3 +69,9 @@ services:
     - protocol: https
       name: https
       port: 44397
+- name: ui-pantry
+  dockerFile: ui-pantry/Dockerfile
+  bindings:
+    - protocol: http
+      name: http
+      containerPort: 80
