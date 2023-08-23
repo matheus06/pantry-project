@@ -351,5 +351,4 @@ MigrationBackup/
 .ionide/
 
 # Tye
-microservices/.tye/docker_store
-microservices/.tye/process_store
+.tye/

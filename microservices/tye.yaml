@@ -74,4 +74,4 @@ services:
   bindings:
     - protocol: http
       name: http
-      containerPort: 80
+      port: 4200

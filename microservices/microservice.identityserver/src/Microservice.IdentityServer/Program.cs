@@ -26,6 +26,8 @@ builder.Services.AddIdentityServer()
     })
     .AddTestUsers(TestUsers.Users);
 
+builder.Services.AddRazorPages();
+
 //Add IoC
 builder.Services.AddIoC();
 
@@ -62,8 +64,20 @@ var app = builder.Build();
 
 app.UseIdentityServer();
 
+if (app.Environment.IsDevelopment())
+{
+    app.UseCookiePolicy(new CookiePolicyOptions()
+    {
+        MinimumSameSitePolicy = SameSiteMode.Lax
+    });
+}
+
 //app.ConfigureBaseApplicationBuilders();
 app.ConfigureBaseEndpointBuilders();
+app.UseStaticFiles();
+app.UseRouting();
+app.UseAuthorization();
+app.MapRazorPages().RequireAuthorization();
 
 //Initialize DB
 // using var scope = app.Services.CreateScope();
