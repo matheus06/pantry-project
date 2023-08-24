@@ -68,8 +68,8 @@ namespace Microservice.IdentityServer
                     RequirePkce = true,
                     RequireClientSecret = false,
 
-                    RedirectUris = { "http://localhost" },
-                    PostLogoutRedirectUris = { "http://localhost" },
+                    RedirectUris = { "http://localhost:4200" },
+                    PostLogoutRedirectUris = { "http://localhost:4200" },
                     AllowedCorsOrigins = { "http://localhost:4200", "https://localhost:1001"},
 
                     // scopes that client has access to

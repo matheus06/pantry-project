@@ -6,7 +6,6 @@ namespace Microservice.Scheduler.Application.Services;
 
 public class SchedulerService
 {
-
     public void ScheduleJob(JobRequest jobRequest)
     {
         //Bus

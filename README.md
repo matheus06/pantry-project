@@ -4,6 +4,7 @@
 * [Microservice ProductManager](/microservices/microservice.productmanager)
 * [Microservice RecipeManager](/microservices/microservice.recipemanager)
 * [Microservice Scheduler](/microservices/microservice.scheduler)
+* [UI Pantry](/microservices/ui-pantry)
 * [Platform](/microservices/platform)
 
 ## Microservice Layers
@@ -15,6 +16,10 @@
 Aggregates are one of the more challenging aspects of tactical modeling. Developers often end up with large clusters of objects that do not give good performance and scalability.
 
 The aggregate pattern discusses composition and alludes to information hiding. It also discusses consistency boundaries and transactions.
+
+It’s typical to think about aggregates based on their hierarchy & relationships between entities. This comes from the nature of thinking about data first and not behaviors.
+
+If you don’t know what the behaviors are, you can’t know what invariants to enforce.
 
 Rule: Model True Invariants In Consistency Boundaries
 
