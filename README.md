@@ -7,10 +7,24 @@
 * [UI Pantry](/microservices/ui-pantry)
 * [Platform](/microservices/platform)
 
+## Architeture
+
+![architeture](/docs/arch.png)
+
 ## How To Run
 
-docker-compose up to run ELK.
-tye run to run the services.
+### Requirements
+
+* Docker
+* Tye
+* Dapr
+* .Net 7
+* SQL
+
+### Run
+
+* `docker-compose up` to run ELK.
+* `tye run` to run the services.
 
 ## Technical Concepts
 
