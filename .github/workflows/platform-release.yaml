@@ -3,7 +3,7 @@ name: platform-release
 on:
   push:
    branches:
-    - master
+    - main
    paths:
      - "microservices/platform/src/**"
      - "microservices/platform/test/**"
