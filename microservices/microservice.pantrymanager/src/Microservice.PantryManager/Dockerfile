@@ -1,6 +1,6 @@
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build-env
 WORKDIR /src
-COPY ./microservices/microservice.pantrymanager/src/Microservice.PantryManager/ ./
+COPY . ./
 RUN dotnet restore
 RUN dotnet publish -c Release -o out
 

@@ -25,7 +25,7 @@ extensions:
   # placement-port: 6050
 services:
 - name: pantrymanager
-  project: microservice.pantrymanager/src/microservice.pantrymanager/microservice.pantrymanager.csproj
+  dockerFile: microservice.pantrymanager/src/microservice.pantrymanager/Dockerfile
   bindings:
     - protocol: http
       name: http
