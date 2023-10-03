@@ -4,7 +4,7 @@ COPY ./microservices/platform/src/Platform/ ./
 RUN dotnet restore
 RUN dotnet publish -c Release -o out
 
-# Build runtime imaged   
+# Build runtime imaged
 FROM mcr.microsoft.com/dotnet/aspnet:7.0
 WORKDIR /src
 COPY --from=build-env /src/out .
