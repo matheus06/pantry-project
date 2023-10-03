@@ -1,0 +1,56 @@
+version: '3.1'
+
+configs:
+  prometheus_config:
+    file: ./prometheus.yml
+
+services:
+
+  prometheus:
+   container_name: prometheus
+   image: prom/prometheus
+   ports:
+   - "9090:9090"
+   configs:
+   - source: prometheus_config
+     target: /etc/prometheus/prometheus.yml
+
+  grafana:
+   container_name: grafana
+   image: grafana/grafana-enterprise
+   ports:
+   - "3000:3000"
+    
+  elasticsearch:
+   container_name: elasticsearch
+   image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
+   ports:
+    - 9200:9200
+   volumes:
+    - elasticsearch-data:/usr/share/elasticsearch/data
+   environment:
+    - xpack.monitoring.enabled=true
+    - xpack.watcher.enabled=false
+    - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    - discovery.type=single-node
+   networks:
+    - elastic
+
+  kibana:
+   container_name: kibana
+   image: docker.elastic.co/kibana/kibana:7.9.2
+   ports:
+    - 5601:5601
+   depends_on:
+    - elasticsearch
+   environment:
+    - ELASTICSEARCH_URL=http://localhost:9200
+   networks:
+    - elastic
+  
+networks:
+  elastic:
+    driver: bridge
+
+volumes:
+  elasticsearch-data:

@@ -1,6 +1,5 @@
 ﻿using Microservice.RecipeManager.Domain;
 using Microservice.RecipeManager.Domain.RecipeAggregate;
-using Microservice.RecipeManager.Domain.RecipeAggregate.Entities;
 using Microservice.RecipeManager.Infra.Database.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
 

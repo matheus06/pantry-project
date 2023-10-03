@@ -44,12 +44,3 @@ jobs:
         asset_content_type: application/octet-stream
     - name: Push to GitHub package registry
       run: dotnet nuget push *.nupkg
-    - name: Send PR Message
-      uses: mshick/add-pr-comment@v1
-      with:
-        message: |
-          🚀 Production version: 1.0.0 released 🚀 
-
-          Add to your project:
-          dotnet add PROJECT package Platform --version 1.0.0
-        repo-token: ${{ secrets.GITHUB_TOKEN }}

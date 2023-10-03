@@ -4,9 +4,13 @@
         <TargetFramework>net7.0</TargetFramework>
         <Nullable>disable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <RootNamespace>Microservice.PantryManager</RootNamespace>
+        <RepositoryUrl>https://github.com/matheus06/pantry-project</RepositoryUrl>
     </PropertyGroup>
 
+    <ItemGroup>
+        <PackageReference Include="Platform" Version="1.0.0" />
+    </ItemGroup>
+    
     <ItemGroup>
       <PackageReference Include="FluentValidation" Version="11.5.1" />
       <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.5.1" />
@@ -15,9 +19,4 @@
       <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.4" />
       <PackageReference Include="Microsoft.Identity.Web" Version="2.13.3" />
     </ItemGroup>
-       
-    <ItemGroup>
-      <ProjectReference Include="..\..\..\platform\src\Platform\Platform.csproj" />
-    </ItemGroup>
-
 </Project>

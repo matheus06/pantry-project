@@ -2,12 +2,19 @@ using Hangfire;
 using Hangfire.SqlServer;
 using Microservice.Scheduler.Api;
 using Microservice.Scheduler.Infra;
+using Microservice.Scheduler.Infra.Database;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Platform;
 using Platform.Infra.Database;
 using Platform.Infra.Messaging;
 
 var builder = WebApiApplicationBuilder.Build<Program>(args);
+
+
+//SQL Server
+builder.Services.AddDbContext<SchedulerContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SchedulerContext")));
 
 builder.Services.AddHangfire(x => x.UseSqlServerStorage(builder.Configuration.GetConnectionString("SchedulerContext"), new SqlServerStorageOptions 
 {
@@ -44,6 +51,12 @@ app.ConfigureBaseEndpointBuilders();
 app.MapScheduler();
 
 app.UseHangfireDashboard();
+
+
+//Initialize DB
+//using var scope = app.Services.CreateScope();
+//var services = scope.ServiceProvider;
+//services.GetRequiredService<DbInitializer>().Run();
 
 // Capture metrics about all received HTTP requests.
 //app.UseHttpMetrics();

@@ -1,20 +1,25 @@
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build-env
-WORKDIR /src
-COPY ./microservices/microservice.pantrymanager/src/Microservice.PantryManager/ ./
-RUN dotnet restore
-RUN dotnet publish -c Release -o out
+ARG OFFICIAL_NUGET_SOURCE_REPOSITORY=https://api.nuget.org/v3/index.json
+ARG GITHUB_SOURCE_REPOSITORY=https://nuget.pkg.github.com/matheus06/index.json
+ARG GITHUB_PACKAGES_USERNAME=matheus06
+ARG GITHUB_PACKAGES_TOKEN=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
 
-FROM build-env AS unit-tests
-WORKDIR /results
-WORKDIR /test
-COPY ./microservices/microservice.pantrymanager/src/Microservice.PantryManager.Tests/ ./Microservice.PantryManager.Tests/
-RUN dotnet restore "Microservice.PantryManager.Tests/Microservice.PantryManager.Tests.csproj" -s https://api.nuget.org/v3/index.json
-COPY ./test/Microservice.PantryManager.Tests/ ./Microservice.PantryManager.Tests/
-WORKDIR /test/Microservice.PantryManager.Tests
-RUN dotnet test Microservice.PantryManager.Tests.csproj --nologo -c Release --logger:"trx;LogFileName=unit-test-results.xml" -r /results
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build-env
+ARG OFFICIAL_NUGET_SOURCE_REPOSITORY
+ARG GITHUB_SOURCE_REPOSITORY
+ARG GITHUB_PACKAGES_USERNAME
+ARG GITHUB_PACKAGES_TOKEN
+RUN dotnet nuget add source --username ${GITHUB_PACKAGES_USERNAME} --password ${GITHUB_PACKAGES_TOKEN} --store-password-in-clear-text --name github ${GITHUB_SOURCE_REPOSITORY}
+
+WORKDIR /src
+COPY . ./Microservice.IdentityServer
+RUN dotnet restore "Microservice.IdentityServer/Microservice.IdentityServer.csproj"  --runtime linux-x64 \
+    --source ${OFFICIAL_NUGET_SOURCE_REPOSITORY} \
+    --source ${GITHUB_SOURCE_REPOSITORY}
+RUN dotnet publish "Microservice.IdentityServer/Microservice.IdentityServer.csproj" -c Release -o out
+
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:7.0
 WORKDIR /src
-COPY --from=build-env /src/out .
-ENTRYPOINT ["dotnet", "Microservice.PantryManager.dll"]
+COPY --from=build-env /src/out ./
+ENTRYPOINT ["dotnet", "Microservice.IdentityServer.dll"]

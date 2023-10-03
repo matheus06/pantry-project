@@ -1,6 +1,6 @@
-﻿using Microservice.Scheduler.Application;
-using Microservice.Scheduler.Application.Jobs;
+﻿using Platform.Infra.Database;
 using Microservice.Scheduler.Application.Services;
+using Microservice.Scheduler.Infra.Database;
 using Platform.Infra.Messaging;
 using Platform.Infra.Messaging.Abstractions;
 
@@ -10,6 +10,9 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddIoC(this IServiceCollection serviceCollection)
     {
+        //DB init
+        serviceCollection.AddTransient<DbInitializer>(x=> new DbInitializer(x.GetService<SchedulerContext>()));
+
         //Application Services
         serviceCollection.AddScoped<SchedulerService>();
         

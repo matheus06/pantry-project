@@ -1,56 +1,121 @@
-version: '3.1'
-
-configs:
-  prometheus_config:
-    file: ./prometheus.yml
+version: '3.4'
 
 services:
 
-  prometheus:
-   container_name: prometheus
-   image: prom/prometheus
-   ports:
-   - "9090:9090"
-   configs:
-   - source: prometheus_config
-     target: /etc/prometheus/prometheus.yml
-
-  grafana:
-   container_name: grafana
-   image: grafana/grafana-enterprise
-   ports:
-   - "3000:3000"
-    
-  elasticsearch:
-   container_name: elasticsearch
-   image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
-   ports:
-    - 9200:9200
-   volumes:
-    - elasticsearch-data:/usr/share/elasticsearch/data
-   environment:
-    - xpack.monitoring.enabled=true
-    - xpack.watcher.enabled=false
-    - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    - discovery.type=single-node
-   networks:
-    - elastic
-
-  kibana:
-   container_name: kibana
-   image: docker.elastic.co/kibana/kibana:7.9.2
-   ports:
-    - 5601:5601
-   depends_on:
-    - elasticsearch
-   environment:
-    - ELASTICSEARCH_URL=http://localhost:9200
-   networks:
-    - elastic
+  pantry-manager:
+    build:
+      context: ./microservice.pantrymanager/src/microservice.pantrymanager/
+      dockerfile: Dockerfile
+    ports:
+      - 58798:80
+    depends_on:
+      - redis
+      - placement
+    networks:
+      - dapr-network
   
-networks:
-  elastic:
-    driver: bridge
+  pantry-manager-dapr:
+    image: "daprio/daprd:edge"
+    command: ["./daprd",
+      "-app-id", "pantry-manager",
+      "-placement-host-address", "placement:50006",
+      "-components-path", "/microservices/components"]
+    volumes:
+      - "./components/:/components"
+    depends_on:
+      - pantry-manager
+    network_mode: "service:pantry-manager"
 
-volumes:
-  elasticsearch-data:
+  product-manager:
+    build:
+      context: ./microservice.productmanager/src/microservice.productmanager/
+      dockerfile: Dockerfile
+    ports:
+      - 40466:80
+    depends_on:
+      - redis
+      - placement
+    networks:
+      - dapr-network
+
+  product-manager-dapr:
+    image: "daprio/daprd:edge"
+    command: ["./daprd",
+      "-app-id", "product-manager",
+      "-placement-host-address", "placement:50006",
+      "-components-path", "/microservices/components"]
+    volumes:
+      - "./components/:/components"
+    depends_on:
+      - product-manager
+    network_mode: "service:product-manager"
+  
+  recipe-manager:
+    build:
+      context: ./microservice.recipemanager/src/microservice.recipemanager/
+      dockerfile: Dockerfile
+    ports:
+      - 16681:80
+    depends_on:
+      - redis
+      - placement
+    networks:
+      - dapr-network
+
+  recipe-manager-dapr:
+    image: "daprio/daprd:edge"
+    command: ["./daprd",
+      "-app-id", "recipe-manager",
+      "-placement-host-address", "placement:50006",
+      "-components-path", "/microservices/components"]
+    volumes:
+      - "./components/:/components"
+    depends_on:
+      - recipe-manager
+    network_mode: "service:recipe-manager"
+
+  scheduler:
+    build:
+      context: ./microservice.scheduler/src/microservice.scheduler/
+      dockerfile: Dockerfile
+    ports:
+      - 61524:80
+
+  identityserver:
+    build:
+      context: ./microservice.identityserver/src/microservice.identityserver/
+      dockerfile: Dockerfile
+    ports:
+      - 62249:80
+
+  ui-pantry:
+    build:
+      context: ./ui-pantry/
+      dockerfile: Dockerfile
+    ports:
+      - 4200:80
+
+
+  ############################
+  # Dapr placement service
+  ############################
+  placement:
+    image: "daprio/dapr"
+    command: ["./placement", "-port", "50006"]
+    ports:
+      - "50006:50006"
+    networks:
+      - dapr-network
+
+  ############################
+  # Redis state store
+  ############################
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6380:6379"
+    networks:
+      - dapr-network
+
+networks:
+  dapr-network:
