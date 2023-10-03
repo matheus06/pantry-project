@@ -80,9 +80,9 @@ app.UseAuthorization();
 app.MapRazorPages().RequireAuthorization();
 
 //Initialize DB
-// using var scope = app.Services.CreateScope();
-// var services = scope.ServiceProvider;
-// services.GetRequiredService<DbInitializer>().Run();
+using var scope = app.Services.CreateScope();
+var services = scope.ServiceProvider;
+services.GetRequiredService<DbInitializer>().Run();
 
 app.InitializeDatabase();
 
