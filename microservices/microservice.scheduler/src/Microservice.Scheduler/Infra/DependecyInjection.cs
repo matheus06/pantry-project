@@ -11,7 +11,7 @@ public static class DependencyInjection
     public static IServiceCollection AddIoC(this IServiceCollection serviceCollection)
     {
         //DB init
-        serviceCollection.AddTransient<DbInitializer>(x=> new DbInitializer(x.GetService<SchedulerContext>()));
+        serviceCollection.AddTransient<DbInitializer>(x=> new DbInitializer(x.GetService<SchedulerContext>()) { IsToUseMigration = true });
 
         //Application Services
         serviceCollection.AddScoped<SchedulerService>();

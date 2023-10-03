@@ -23,6 +23,7 @@ builder.Services.AddHangfire(x => x.UseSqlServerStorage(builder.Configuration.Ge
     QueuePollInterval = TimeSpan.Zero,
     UseRecommendedIsolationLevel = true,
     DisableGlobalLocks = true,
+    PrepareSchemaIfNecessary = false
 }));
 
 builder.Services.AddHangfireServer();
@@ -50,13 +51,15 @@ app.ConfigureBaseEndpointBuilders();
 // Configure the Minimal APIs
 app.MapScheduler();
 
-app.UseHangfireDashboard();
+app.UseHangfireDashboard( options: new DashboardOptions{
+    Authorization = new[] { new HangFireDashboardAuthorizationFilter() }
+});
 
 
 //Initialize DB
-//using var scope = app.Services.CreateScope();
-//var services = scope.ServiceProvider;
-//services.GetRequiredService<DbInitializer>().Run();
+using var scope = app.Services.CreateScope();
+var services = scope.ServiceProvider;
+services.GetRequiredService<DbInitializer>().Run();
 
 // Capture metrics about all received HTTP requests.
 //app.UseHttpMetrics();

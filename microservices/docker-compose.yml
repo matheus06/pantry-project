@@ -1,8 +1,13 @@
 version: '3.4'
 
+configs:
+  prometheus_config:
+    file: ./prometheus.yml
+    
 services:
 
   pantry-manager:
+    restart: always
     build:
       context: ./microservice.pantrymanager/src/microservice.pantrymanager/
       dockerfile: Dockerfile
@@ -11,6 +16,7 @@ services:
     depends_on:
       - redis
       - placement
+      - sql-server
     networks:
       - dapr-network
   
@@ -27,6 +33,7 @@ services:
     network_mode: "service:pantry-manager"
 
   product-manager:
+    restart: always
     build:
       context: ./microservice.productmanager/src/microservice.productmanager/
       dockerfile: Dockerfile
@@ -35,6 +42,7 @@ services:
     depends_on:
       - redis
       - placement
+      - sql-server
     networks:
       - dapr-network
 
@@ -51,6 +59,7 @@ services:
     network_mode: "service:product-manager"
   
   recipe-manager:
+    restart: always
     build:
       context: ./microservice.recipemanager/src/microservice.recipemanager/
       dockerfile: Dockerfile
@@ -59,6 +68,7 @@ services:
     depends_on:
       - redis
       - placement
+      - sql-server
     networks:
       - dapr-network
 
@@ -75,11 +85,30 @@ services:
     network_mode: "service:recipe-manager"
 
   scheduler:
+    restart: always
     build:
       context: ./microservice.scheduler/src/microservice.scheduler/
       dockerfile: Dockerfile
     ports:
       - 61524:80
+    depends_on:
+      - redis
+      - placement
+      - sql-server
+    networks:
+      - dapr-network
+
+  scheduler-dapr:
+    image: "daprio/daprd:edge"
+    command: ["./daprd",
+      "-app-id", "scheduler",
+      "-placement-host-address", "placement:50006",
+      "-components-path", "/microservices/components"]
+    volumes:
+      - "./components/:/components"
+    depends_on:
+      - scheduler
+    network_mode: "service:scheduler"
 
   identityserver:
     build:
@@ -89,11 +118,21 @@ services:
       - 62249:80
 
   ui-pantry:
+    restart: always
     build:
       context: ./ui-pantry/
       dockerfile: Dockerfile
     ports:
       - 4200:80
+
+  sql-server:
+    container_name: sql-server
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "MyP@ssowrdDocker"
+      ACCEPT_EULA: "Y"
 
 
   ############################
@@ -117,5 +156,55 @@ services:
     networks:
       - dapr-network
 
+  ############################
+  # Elastic
+  ############################
+  prometheus:
+   container_name: prometheus
+   image: prom/prometheus
+   ports:
+   - "9090:9090"
+   configs:
+   - source: prometheus_config
+     target: /etc/prometheus/prometheus.yml
+
+  grafana:
+   container_name: grafana
+   image: grafana/grafana-enterprise
+   ports:
+   - "3000:3000"
+    
+  elasticsearch:
+   container_name: elasticsearch
+   image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
+   ports:
+    - 9200:9200
+   volumes:
+    - elasticsearch-data:/usr/share/elasticsearch/data
+   environment:
+    - xpack.monitoring.enabled=true
+    - xpack.watcher.enabled=false
+    - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    - discovery.type=single-node
+   networks:
+    - elastic
+
+  kibana:
+   container_name: kibana
+   image: docker.elastic.co/kibana/kibana:7.9.2
+   ports:
+    - 5601:5601
+   depends_on:
+    - elasticsearch
+   environment:
+    - ELASTICSEARCH_URL=http://localhost:9200
+   networks:
+    - elastic
+  
 networks:
+  elastic:
+    driver: bridge
   dapr-network:
+
+volumes:
+  elasticsearch-data:
