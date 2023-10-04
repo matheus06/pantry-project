@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scheduler-deploy
+  namespace: pantry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: scheduler
+  template:
+    metadata:
+      labels:
+        app: scheduler
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "scheduler"
+        dapr.io/app-port: "80"
+        dapr.io/enable-api-logging: "true"  
+    spec:
+      containers:
+        - name: scheduler
+          image: matheus06/scheduler:latest
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: scheduler-clusterip-srv
+  namespace: pantry
+spec:
+  type: ClusterIP
+  selector:
+    app: scheduler
+  ports:
+  - name: scheduler
+    protocol: TCP
+    port: 80
+    targetPort: 80

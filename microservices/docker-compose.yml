@@ -13,6 +13,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - 58798:80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=docker
     depends_on:
       - redis
       - placement
@@ -40,6 +42,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - 40466:80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=docker
     depends_on:
       - redis
       - placement
@@ -50,6 +54,7 @@ services:
     image: "daprio/daprd:edge"
     command: ["./daprd",
       "-app-id", "product-manager",
+      "--app-port", "80",
       "-placement-host-address", "placement:50006",
       "-components-path", "/components"]
     volumes:
@@ -65,6 +70,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - 16681:80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=docker
     depends_on:
       - redis
       - placement
@@ -75,6 +82,7 @@ services:
     image: "daprio/daprd:edge"
     command: ["./daprd",
       "-app-id", "recipe-manager",
+      "--app-port", "80",
       "-placement-host-address", "placement:50006",
       "-components-path", "/components"]
     volumes:
@@ -90,6 +98,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - 61524:80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=docker
     depends_on:
       - redis
       - placement
@@ -115,6 +125,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - 62249:80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=docker
 
   ui-pantry:
     restart: always

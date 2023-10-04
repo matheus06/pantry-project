@@ -9,6 +9,12 @@
 
 ## Architeture
 
+Local:
+
+![architeture](/docs/arch.png)
+
+K8s:
+
 ![architeture](/docs/arch.png)
 
 ## How To Run
@@ -16,15 +22,64 @@
 ### Requirements
 
 * Docker
-* Tye
+* Tye (for DEBUG only)
 * Dapr
 * .Net 7
 * SQL
 
-### Run
+### Run Locally using Docker-Compose or Tye
 
-* `docker-compose up` to run ELK.
-* `tye run` to run the services.
+* Run SQLServer in container.
+  * `docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=MyP@ssowrdDocker" -p 1433:1433 --name sqlserver --hostname sql -d mcr.microsoft.com/mssql/server:2022-latest`
+* `docker-compose up` to run all services in Docker.
+* `tye run` to run the services using the .NET csproj files in order to DEBUG.
+
+* Urls
+  * UI => <http://localhost:4200>
+
+### Run in local k8s cluster
+
+* Requirements for k8s cluster
+
+Install ngnix
+
+```console
+helm upgrade --install ingress-nginx ingress-nginx  --repo https://kubernetes.github.io/ingress-nginx   --namespace ingress-nginx --create-namespace
+```
+
+Install dapr
+
+```console
+dapr init -k
+```
+
+* Run using powershell to apply k8s manifest files
+
+Generate images on a repository
+
+```console
+.\docker-build-and-push-all.ps1    
+```
+
+Apply Deployments (please update files [k8s/files] using the correct container registry)
+
+```console
+.\kubectl-apply-all-deployments.ps1     
+```
+
+Delete Deployments (please update files [k8s/files] using the correct container registry)
+
+```console
+ .\kubectl-delete-all-deployments.ps1    
+```
+
+* Urls
+  * UI => <http://pantrymanager.localdev.me/>
+  * Pantry API => <http://pantrymanager-pantry-api.localdev.me/>
+  * Product API => <http://pantrymanager-product-api.localdev.me/>
+  * Recipe API => <http://pantrymanager-recipe-api.localdev.me/>
+  * Scheduler API => <http://pantrymanager-scheduler-api.localdev.me>
+  * Hangfire => <http://pantrymanager-scheduler-api.localdev.me/hangfire>
 
 ## Technical Concepts
 

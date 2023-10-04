@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ui-pantry-deploy
+  namespace: pantry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ui-pantry
+  template:
+    metadata:
+      labels:
+        app: ui-pantry
+    spec:
+      containers:
+        - name: ui-pantry
+          image: matheus06/ui-pantry:latest
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ui-pantry-clusterip-srv
+  namespace: pantry
+spec:
+  type: ClusterIP
+  selector:
+    app: ui-pantry
+  ports:
+  - name: ui-pantry
+    protocol: TCP
+    port: 80
+    targetPort: 80

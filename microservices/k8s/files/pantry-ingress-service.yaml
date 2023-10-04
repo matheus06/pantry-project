@@ -1,0 +1,70 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pantry-ingress-service
+  namespace: pantry
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/use-regex: 'true'
+spec:
+    rules:
+     - host: pantrymanager-ui.localdev.me
+       http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: ui-pantry-clusterip-srv
+              port:
+                number: 80
+     - host: pantrymanager-product-api.localdev.me
+       http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: product-manager-clusterip-srv
+              port:
+                number: 80
+     - host: pantrymanager-pantry-api.localdev.me
+       http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: pantry-manager-clusterip-srv
+              port:
+                number: 80
+     - host: pantrymanager-recipe-api.localdev.me
+       http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: recipe-manager-clusterip-srv
+              port:
+                number: 80
+     - host: pantrymanager-scheduler-api.localdev.me
+       http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: scheduler-clusterip-srv
+              port:
+                number: 80
+     - host: pantrymanager-identityserver.localdev.me
+       http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: identityserver-clusterip-srv
+              port:
+                number: 80

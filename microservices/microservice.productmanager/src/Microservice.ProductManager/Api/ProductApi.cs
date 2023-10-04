@@ -17,6 +17,8 @@ internal static class ProductApi
             return result.IsFailed ? ProblemHelper.Problem(result.Errors) : TypedResults.Created($"/product/{result.Value.Id}", result.Value);
         });
         
+        group.MapGet("/", IResult () => TypedResults.Ok("OK return from AP"));
+        
         return group;
     }
 
