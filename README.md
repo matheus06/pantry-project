@@ -80,6 +80,7 @@ Delete Deployments (please update files [k8s/files] using the correct container 
   * Recipe API => <http://pantrymanager-recipe-api.localdev.me/>
   * Scheduler API => <http://pantrymanager-scheduler-api.localdev.me>
   * Hangfire => <http://pantrymanager-scheduler-api.localdev.me/hangfire>
+  * HealthCheck => <http://pantrymanager-pantry-api.localdev.me/hc-ui>
 
 ## Technical Concepts
 
