@@ -41,6 +41,12 @@ K8s:
 
 * Requirements for k8s cluster
 
+If you dont have yet please run SQLServer in container.
+
+```console
+   `docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=MyP@ssowrdDocker" -p 1433:1433 --name sqlserver --hostname sql -d mcr.microsoft.com/mssql/server:2022-latest`
+```
+
 Install ngnix
 
 ```console
