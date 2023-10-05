@@ -1,5 +1,7 @@
 # Pantry Project
 
+Local development for study purposes
+
 * [Microservice PantryManager](/microservices/microservice.pantrymanager)
 * [Microservice ProductManager](/microservices/microservice.productmanager)
 * [Microservice RecipeManager](/microservices/microservice.recipemanager)
@@ -30,7 +32,11 @@ K8s:
 ### Run Locally using Docker-Compose or Tye
 
 * Run SQLServer in container.
-  * `docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=MyP@ssowrdDocker" -p 1433:1433 --name sqlserver --hostname sql -d mcr.microsoft.com/mssql/server:2022-latest`
+
+```console
+   `docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=MyP@ssowrdDocker" -p 1433:1433 --name sqlserver --hostname sql -d mcr.microsoft.com/mssql/server:2022-latest`
+```
+
 * `docker-compose up` to run all services in Docker.
 * `tye run` to run the services using the .NET csproj files in order to DEBUG.
 
@@ -77,27 +83,29 @@ helm repo update
 helm install redis bitnami/redis --set image.tag=6.2
 ```
 
-Copy redis secret from default namespace to pantry namespace (you need first to install yq => <https://github.com/mikefarah/yq/#install>)
+Copy redis secret from default namespace to pantry namespace:
+  
+* you first need to install yq => <https://github.com/mikefarah/yq/#install>
 
 ```console
 kubectl --namespace=default get secret redis -o yaml | yq 'del(.metadata.creationTimestamp, .metadata.uid, .metadata.resourceVersion, .metadata.namespace)' | kubectl apply --namespace=pantry -f -
 ```
 
-* Run using powershell to apply k8s manifest files
+* Using powershell to apply k8s manifest files
 
-Generate images on a repository
+Generate images on a given registry
 
 ```console
 .\docker-build-and-push-all.ps1    
 ```
 
-Apply Deployments (please update files [k8s/files] using the correct container registry)
+Apply Deployments (please update files [k8s/files] using the same container registry used to upload the images)
 
 ```console
 .\kubectl-apply-all-deployments.ps1     
 ```
 
-Delete Deployments (please update files [k8s/files] using the correct container registry)
+Delete Deployments (please update files [k8s/files] using the same container registry used to upload the images)
 
 ```console
  .\kubectl-delete-all-deployments.ps1    
