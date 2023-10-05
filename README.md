@@ -86,6 +86,12 @@ helm install dapr-dashboard dapr/dapr-dashboard
 dapr dashboard -k
 ```
 
+Apply components
+
+```console
+.\kubectl-apply-dapr-components.ps1     
+```
+
 Install redis
 
 ```console
@@ -114,6 +120,20 @@ Delete Deployments
 
 ```console
  .\kubectl-delete-all-deployments.ps1    
+```
+
+* Using helm to install app
+
+Install app
+
+```console
+helm upgrade --install pantry-app .  --namespace=pantry    
+```
+
+Uninstall app
+
+```console
+helm uninstall pantry-app . --namespace=pantry     
 ```
 
 * k8s Urls
