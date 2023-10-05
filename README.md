@@ -42,6 +42,12 @@ K8s:
 
 * Urls
   * UI => <http://localhost:4200>
+  * Pantry API => <http://localhost:58798/>
+  * Product API => <http://localhost:40466/>
+  * Recipe API => <http://localhost:16681/>
+  * Scheduler API => <http://localhost:61524/>
+  * Hangfire => <http://localhost:61524/hangfire>
+  * HealthCheck => <http://localhost:58798/hc-ui>
 
 ### Run in local k8s cluster
 
@@ -93,19 +99,13 @@ kubectl --namespace=default get secret redis -o yaml | yq 'del(.metadata.creatio
 
 * Using powershell to apply k8s manifest files
 
-Generate images on a given registry
-
-```console
-.\docker-build-and-push-all.ps1    
-```
-
-Apply Deployments (please update files [k8s/files] using the same container registry used to upload the images)
+Apply Deployments
 
 ```console
 .\kubectl-apply-all-deployments.ps1     
 ```
 
-Delete Deployments (please update files [k8s/files] using the same container registry used to upload the images)
+Delete Deployments
 
 ```console
  .\kubectl-delete-all-deployments.ps1    
