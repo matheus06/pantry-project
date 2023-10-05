@@ -352,3 +352,5 @@ MigrationBackup/
 
 # Tye
 .tye/
+
+docs\Technical.md

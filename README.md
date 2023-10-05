@@ -111,7 +111,7 @@ Delete Deployments (please update files [k8s/files] using the same container reg
  .\kubectl-delete-all-deployments.ps1    
 ```
 
-* Urls
+* k8s Urls
   * UI => <http://pantrymanager.localdev.me/>
   * Pantry API => <http://pantrymanager-pantry-api.localdev.me/>
   * Product API => <http://pantrymanager-product-api.localdev.me/>
@@ -119,7 +119,3 @@ Delete Deployments (please update files [k8s/files] using the same container reg
   * Scheduler API => <http://pantrymanager-scheduler-api.localdev.me>
   * Hangfire => <http://pantrymanager-scheduler-api.localdev.me/hangfire>
   * HealthCheck => <http://pantrymanager-pantry-api.localdev.me/hc-ui>
-
-## Technical Concepts
-
-* [Technical Concepts](/docs/Technical.md)
