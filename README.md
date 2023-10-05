@@ -9,22 +9,22 @@ Local development for study purposes
 * [UI Pantry](/microservices/ui-pantry)
 * [Platform](/microservices/platform)
 
-## Architeture
+## Architecture
 
 Local:
 
-![architeture-local](/docs/arch-local.png)
+![architecture-local](/docs/arch-local.png)
 
 K8s:
 
-![architeture-k8s](/docs/arch-k8s.png)
+![architecture-k8s](/docs/arch-k8s.png)
 
 ## How To Run
 
 ### Requirements
 
 * Docker
-* Tye (for DEBUG only)
+* Tye (for local DEBUG only)
 * Dapr
 * .Net 7
 * SQL
