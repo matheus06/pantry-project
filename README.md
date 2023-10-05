@@ -69,7 +69,13 @@ helm install dapr-dashboard dapr/dapr-dashboard
 dapr dashboard -k
 ```
 
-<https://docs.dapr.io/getting-started/tutorials/configure-state-pubsub/>
+Install redis
+
+```console
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo update
+helm install redis bitnami/redis --set image.tag=6.2
+```
 
 Copy redis secret from default namespace to pantry namespace (you need first to install yq => <https://github.com/mikefarah/yq/#install>)
 
