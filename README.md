@@ -85,7 +85,7 @@ helm install redis bitnami/redis --set image.tag=6.2
 
 Copy redis secret from default namespace to pantry namespace:
   
-* you first need to install yq => <https://github.com/mikefarah/yq/#install>
+`you first need to install yq => <https://github.com/mikefarah/yq/#install>`
 
 ```console
 kubectl --namespace=default get secret redis -o yaml | yq 'del(.metadata.creationTimestamp, .metadata.uid, .metadata.resourceVersion, .metadata.namespace)' | kubectl apply --namespace=pantry -f -
