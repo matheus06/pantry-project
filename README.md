@@ -11,11 +11,11 @@
 
 Local:
 
-![architeture](/docs/arch.png)
+![architeture-local](/docs/arch-local.png)
 
 K8s:
 
-![architeture](/docs/arch-k8s.png)
+![architeture-k8s](/docs/arch-k8s.png)
 
 ## How To Run
 
