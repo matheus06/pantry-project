@@ -38,7 +38,12 @@ K8s:
 ```
 
 * `docker-compose up` to run all services in Docker.
-* `tye run` to run the services using the .NET csproj files in order to DEBUG.
+
+or
+
+* `winget install Dapr.CLI` => install dapr locally.
+* `dapr init` => Initialize Dapr in your local environment
+* `tye run` => run the services using the .NET csproj files in order to DEBUG.
 
 * Urls
   * UI => <http://localhost:4200>

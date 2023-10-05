@@ -8,11 +8,25 @@ Begin {
 }
 Process {
     function Build-Docker-Images {
-        docker build  ../../microservice.pantrymanager/src/microservice.pantrymanager -t $RegistryName/pantry-manager:latest
-        docker build  ../../microservice.productmanager/src/microservice.productmanager -t $RegistryName/product-manager:latest
-        docker build  ../../microservice.recipemanager/src/microservice.recipemanager -t $RegistryName/recipe-manager:latest
-        docker build  ../../microservice.scheduler/src/microservice.scheduler -t $RegistryName/scheduler:latest
-        docker build  ../../microservice.identityserver/src/microservice.identityserver -t $RegistryName/identityserver:latest
+
+        # get GitHub credentials
+        $GitHubPackagesCreds = & (Join-Path $PSScriptRoot './github-authentication.ps1' -Resolve)
+
+        docker build  ../../microservice.pantrymanager/src/microservice.pantrymanager -t $RegistryName/pantry-manager:latest `
+            --build-arg GITHUB_PACKAGES_USERNAME="$($GitHubPackagesCreds.GitHubUsername)" `
+            --build-arg GITHUB_PACKAGES_TOKEN="$($GitHubPackagesCreds.GitHubToken)"
+        docker build  ../../microservice.productmanager/src/microservice.productmanager -t $RegistryName/product-manager:latest `
+            --build-arg GITHUB_PACKAGES_USERNAME="$($GitHubPackagesCreds.GitHubUsername)" `
+            --build-arg GITHUB_PACKAGES_TOKEN="$($GitHubPackagesCreds.GitHubToken)"
+        docker build  ../../microservice.recipemanager/src/microservice.recipemanager -t $RegistryName/recipe-manager:latest `
+            --build-arg GITHUB_PACKAGES_USERNAME="$($GitHubPackagesCreds.GitHubUsername)" `
+            --build-arg GITHUB_PACKAGES_TOKEN="$($GitHubPackagesCreds.GitHubToken)"
+        docker build  ../../microservice.scheduler/src/microservice.scheduler -t $RegistryName/scheduler:latest `
+            --build-arg GITHUB_PACKAGES_USERNAME="$($GitHubPackagesCreds.GitHubUsername)" `
+            --build-arg GITHUB_PACKAGES_TOKEN="$($GitHubPackagesCreds.GitHubToken)"
+        docker build  ../../microservice.identityserver/src/microservice.identityserver -t $RegistryName/identityserver:latest `
+            --build-arg GITHUB_PACKAGES_USERNAME="$($GitHubPackagesCreds.GitHubUsername)" `
+            --build-arg GITHUB_PACKAGES_TOKEN="$($GitHubPackagesCreds.GitHubToken)"
         docker build  ../../ui-pantry -t $RegistryName/ui-pantry:latest
         Write-Output "build done"
     }

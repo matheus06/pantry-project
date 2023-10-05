@@ -12,11 +12,6 @@ spec:
     metadata:
       labels:
         app: identityserver
-      annotations:
-        dapr.io/enabled: "true"
-        dapr.io/app-id: "identityserver"
-        dapr.io/app-port: "80"
-        dapr.io/enable-api-logging: "true"  
     spec:
       containers:
         - name: identityserver
