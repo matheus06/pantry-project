@@ -15,7 +15,7 @@ Local:
 
 K8s:
 
-![architeture](/docs/arch.png)
+![architeture](/docs/arch-k8s.png)
 
 ## How To Run
 
