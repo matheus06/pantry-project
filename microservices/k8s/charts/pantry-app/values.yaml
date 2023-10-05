@@ -1,0 +1,267 @@
+
+ui-pantry:
+  replicaCount: 1
+
+  image:
+    repository: matheus06/ui-pantry
+    pullPolicy: IfNotPresent
+    tag: "latest"
+
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 80
+
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      nginx.ingress.kubernetes.io/use-regex: 'true'
+    hosts:
+      - host: pantrymanager-ui.localdev.me
+        paths:
+         - path: /
+           pathType: Prefix
+
+  autoscaling:
+    enabled: false
+
+  serviceAccount:
+    create: false
+
+  resources:
+    requests:
+      memory: "64Mi"
+      cpu: "250m"
+    limits:
+      memory: "128Mi"
+      cpu: "500m"
+
+pantry-manager:
+  replicaCount: 1
+
+  image:
+    repository: matheus06/pantry-manager
+    pullPolicy: IfNotPresent
+    tag: "latest"
+
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 80
+
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      nginx.ingress.kubernetes.io/use-regex: 'true'
+    hosts:
+      - host: pantrymanager-pantry-api.localdev.me
+        paths:
+         - path: /
+           pathType: Prefix
+
+  podAnnotations:
+    dapr.io/enabled: "true"
+    dapr.io/app-id: "pantry-manager"
+    dapr.io/app-port: "80"
+    dapr.io/enable-api-logging: "true"  
+
+  livenessProbe: /healthz
+  readinessProbe: /healthz
+
+  autoscaling:
+    enabled: false
+
+  serviceAccount:
+    create: false
+
+  resources:
+    requests:
+      memory: "64Mi"
+      cpu: "250m"
+    limits:
+      memory: "128Mi"
+      cpu: "500m"
+
+product-manager:
+  replicaCount: 1
+
+  image:
+    repository: matheus06/product-manager
+    pullPolicy: IfNotPresent
+    tag: "latest"
+
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 80
+
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      nginx.ingress.kubernetes.io/use-regex: 'true'
+    hosts:
+      - host: pantrymanager-product-api.localdev.me
+        paths:
+         - path: /
+           pathType: Prefix
+
+  podAnnotations:
+    dapr.io/enabled: "true"
+    dapr.io/app-id: "product-manager"
+    dapr.io/app-port: "80"
+    dapr.io/enable-api-logging: "true"  
+
+  livenessProbe: /healthz
+  readinessProbe: /healthz
+
+  autoscaling:
+    enabled: false
+
+  serviceAccount:
+    create: false
+
+  resources:
+    requests:
+      memory: "64Mi"
+      cpu: "250m"
+    limits:
+      memory: "128Mi"
+      cpu: "500m"
+
+recipe-manager:
+  replicaCount: 1
+
+  image:
+    repository: matheus06/recipe-manager
+    pullPolicy: IfNotPresent
+    tag: "latest"
+
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 80
+
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      nginx.ingress.kubernetes.io/use-regex: 'true'
+    hosts:
+      - host: pantrymanager-recipe-api.localdev.me
+        paths:
+         - path: /
+           pathType: Prefix
+
+  podAnnotations:
+    dapr.io/enabled: "true"
+    dapr.io/app-id: "recipe-manager"
+    dapr.io/app-port: "80"
+    dapr.io/enable-api-logging: "true"  
+
+  livenessProbe: /healthz
+  readinessProbe: /healthz
+
+  autoscaling:
+    enabled: false
+
+  serviceAccount:
+    create: false
+
+  resources:
+    requests:
+      memory: "64Mi"
+      cpu: "250m"
+    limits:
+      memory: "128Mi"
+      cpu: "500m"
+
+scheduler:
+  replicaCount: 1
+
+  image:
+    repository: matheus06/scheduler
+    pullPolicy: IfNotPresent
+    tag: "latest"
+
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 80
+
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      nginx.ingress.kubernetes.io/use-regex: 'true'
+    hosts:
+      - host: pantrymanager-scheduler-api.localdev.me
+        paths:
+          - path: /
+            pathType: Prefix
+
+  podAnnotations:
+    dapr.io/enabled: "true"
+    dapr.io/app-id: "scheduler"
+    dapr.io/app-port: "80"
+    dapr.io/enable-api-logging: "true"  
+
+  livenessProbe: /healthz
+  readinessProbe: /healthz
+
+  autoscaling:
+    enabled: false
+
+  serviceAccount:
+    create: false
+
+  resources:
+    requests:
+      memory: "64Mi"
+      cpu: "250m"
+    limits:
+      memory: "128Mi"
+      cpu: "500m"
+
+identityserver:
+  replicaCount: 1
+
+  image:
+    repository: matheus06/identityserver
+    pullPolicy: IfNotPresent
+    tag: "latest"
+
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 80
+
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      nginx.ingress.kubernetes.io/use-regex: 'true'
+    hosts:
+      - host: pantrymanager-identityserver.localdev.me
+        paths:
+          - path: /
+            pathType: Prefix
+
+  livenessProbe: /healthz
+  readinessProbe: /healthz
+
+  autoscaling:
+    enabled: false
+
+  serviceAccount:
+    create: false
+
+  resources:
+    requests:
+      memory: "64Mi"
+      cpu: "250m"
+    limits:
+      memory: "128Mi"
+      cpu: "500m"

@@ -27,7 +27,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: identityserver-clusterip-srv
+  name: pantry-app-identityserver
   namespace: pantry
 spec:
   type: ClusterIP

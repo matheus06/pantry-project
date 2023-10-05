@@ -32,7 +32,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: recipe-manager-clusterip-srv
+  name: pantry-app-recipe-manager
   namespace: pantry
 spec:
   type: ClusterIP

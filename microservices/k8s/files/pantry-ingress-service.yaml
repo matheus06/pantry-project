@@ -15,7 +15,7 @@ spec:
           pathType: Prefix
           backend:
             service:
-              name: ui-pantry-clusterip-srv
+              name: pantry-app-ui-pantry
               port:
                 number: 80
      - host: pantrymanager-product-api.localdev.me
@@ -25,7 +25,7 @@ spec:
           pathType: Prefix
           backend:
             service:
-              name: product-manager-clusterip-srv
+              name: pantry-app-product-manager
               port:
                 number: 80
      - host: pantrymanager-pantry-api.localdev.me
@@ -35,7 +35,7 @@ spec:
           pathType: Prefix
           backend:
             service:
-              name: pantry-manager-clusterip-srv
+              name: pantry-app-pantry-manager
               port:
                 number: 80
      - host: pantrymanager-recipe-api.localdev.me
@@ -45,7 +45,7 @@ spec:
           pathType: Prefix
           backend:
             service:
-              name: recipe-manager-clusterip-srv
+              name: pantry-app-recipe-manager
               port:
                 number: 80
      - host: pantrymanager-scheduler-api.localdev.me
@@ -55,7 +55,7 @@ spec:
           pathType: Prefix
           backend:
             service:
-              name: scheduler-clusterip-srv
+              name: pantry-app-scheduler
               port:
                 number: 80
      - host: pantrymanager-identityserver.localdev.me
@@ -65,6 +65,6 @@ spec:
           pathType: Prefix
           backend:
             service:
-              name: identityserver-clusterip-srv
+              name: pantry-app-identityserver
               port:
                 number: 80
