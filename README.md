@@ -59,6 +59,24 @@ Install dapr
 dapr init -k
 ```
 
+Install dapr dashboard
+
+```console
+helm repo add dapr https://dapr.github.io/helm-charts/
+helm repo update
+helm install dapr-dashboard dapr/dapr-dashboard
+
+dapr dashboard -k
+```
+
+<https://docs.dapr.io/getting-started/tutorials/configure-state-pubsub/>
+
+Copy redis secret from default namespace to pantry namespace (you need first to install yq => <https://github.com/mikefarah/yq/#install>)
+
+```console
+kubectl --namespace=default get secret redis -o yaml | yq 'del(.metadata.creationTimestamp, .metadata.uid, .metadata.resourceVersion, .metadata.namespace)' | kubectl apply --namespace=pantry -f -
+```
+
 * Run using powershell to apply k8s manifest files
 
 Generate images on a repository
