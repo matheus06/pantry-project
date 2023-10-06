@@ -103,7 +103,7 @@ public static class WebApiApplicationBuilder
     
     public static void ConfigureBaseEndpointBuilders(this IEndpointRouteBuilder app)
     {
-        app.Map("/api/docs/", () => Results.Redirect("/swagger"));
+        // app.Map("/docs/", () => Results.Redirect("/swagger"));
         
         //Health Check Api
         app.MapHealthChecks("/healthz", new HealthCheckOptions
