@@ -43,11 +43,11 @@ public static class WebApiApplicationBuilder
             .AddJwtBearer("Bearer", options =>
             {
                 options.Authority = identityServerUri;
-
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateAudience = false
                 };
+                options.RequireHttpsMetadata = false;
             });
 
         //Configure Authorization
@@ -88,6 +88,7 @@ public static class WebApiApplicationBuilder
                     new string[] { }
                 }
             });
+            o.DocumentFilter<PathPrefixInsertDocumentFilter>($"api-{serviceName}");
         });
         
         return builder;
@@ -103,8 +104,6 @@ public static class WebApiApplicationBuilder
     
     public static void ConfigureBaseEndpointBuilders(this IEndpointRouteBuilder app)
     {
-        // app.Map("/docs/", () => Results.Redirect("/swagger"));
-        
         //Health Check Api
         app.MapHealthChecks("/healthz", new HealthCheckOptions
         {
