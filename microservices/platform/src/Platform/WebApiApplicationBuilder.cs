@@ -45,7 +45,8 @@ public static class WebApiApplicationBuilder
                 options.Authority = identityServerUri;
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidateAudience = false
+                    ValidateAudience = false,
+                    ValidIssuer = "https://localdev-tls.me"
                 };
                 options.RequireHttpsMetadata = false;
             });
@@ -88,7 +89,7 @@ public static class WebApiApplicationBuilder
                     new string[] { }
                 }
             });
-            o.DocumentFilter<PathPrefixInsertDocumentFilter>($"api-{serviceName}");
+            o.DocumentFilter<PathPrefixInsertDocumentFilter>($"/api-{serviceName}");
         });
         
         return builder;
