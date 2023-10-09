@@ -11,7 +11,7 @@ Begin {
 Process {
 
     # clear previous compose
-    #docker-compose down
+    docker-compose down
 
     # remove env.list if exists
     $tmp_envListPath = Join-Path $PSScriptRoot ../env.list
@@ -34,10 +34,8 @@ Process {
     # need to convert CRLF to LF line endings
     ((Get-Content $tmp_envListPath) -join "`n") + "`n" | Set-Content -NoNewline $tmp_envListPath
 
-    $envListPath = Join-Path $PSScriptRoot ../env.list -Resolve
-
     # run docker compose
-    #docker-compose up
+    docker-compose up
 }
 End {
     Pop-Location

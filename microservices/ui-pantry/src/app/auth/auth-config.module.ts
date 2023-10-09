@@ -1,17 +1,19 @@
 import { NgModule } from '@angular/core';
 import { AuthModule } from 'angular-auth-oidc-client';
+import { environment } from 'src/environments/environment';
+
 
 @NgModule({
     imports: [AuthModule.forRoot({
         config: {
-              authority: 'http://localhost:62249',
+              authority: `${environment.identityUrl}`,
               redirectUrl: window.location.origin,
               postLogoutRedirectUri: window.location.origin,
               clientId: 'angular-client',
               scope: 'openid pantry',
               responseType: 'code',
-              silentRenew: true,
-              useRefreshToken: true
+              silentRenew: false,
+              useRefreshToken: false
           }
       })],
     exports: [AuthModule],

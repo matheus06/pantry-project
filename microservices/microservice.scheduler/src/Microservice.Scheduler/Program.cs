@@ -51,7 +51,8 @@ app.ConfigureBaseEndpointBuilders();
 // Configure the Minimal APIs
 app.MapScheduler();
 
-app.UseHangfireDashboard( options: new DashboardOptions{
+app.UseHangfireDashboard(  options: new DashboardOptions{
+    PrefixPath = "/api-scheduler",
     Authorization = new[] { new HangFireDashboardAuthorizationFilter() }
 });
 

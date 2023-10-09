@@ -7,6 +7,7 @@ Process {
     function Invoke-All-Deployments {
         kubectl apply -f ../files/pantry-namespace.yaml
         kubectl apply -f ../files/pantry-ingress-service.yaml
+        kubectl apply -f ../files/pantry-ingress-service-no-rewrite.yaml
         kubectl apply -f ../files/pantry-manager-deployment.yaml
         kubectl apply -f ../files/product-manager-deployment.yaml
         kubectl apply -f ../files/recipe-manager-deployment.yaml

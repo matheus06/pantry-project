@@ -7,10 +7,21 @@ using Platform.Infra.Database;
 using Serilog;
 using Serilog.Exceptions;
 using Serilog.Sinks.Elasticsearch;
+using Duende.IdentityServer.Services;
+using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var serviceName = builder.Configuration["MicroserviceSettings:Service"];
+
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders =
+        ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+        options.RequireHeaderSymmetry = false;
+        options.KnownNetworks.Clear();
+        options.KnownProxies.Clear();
+});
 
 var migrationsAssembly = typeof(Program).Assembly.GetName().Name;
 builder.Services.AddIdentityServer()
@@ -62,6 +73,16 @@ builder.Host.UseSerilog((context, loggerConfiguration) =>
 
 var app = builder.Build();
 
+if (!app.Environment.IsProduction())
+{
+    app.Use((context, next) =>
+    {
+        context.Request.Scheme = "https";
+        return next(context);
+    });
+}
+app.UseForwardedHeaders();
+
 app.UseIdentityServer();
 
 if (app.Environment.IsDevelopment())
@@ -71,6 +92,15 @@ if (app.Environment.IsDevelopment())
         MinimumSameSitePolicy = SameSiteMode.Lax
     });
 }
+else
+{
+    app.UseCookiePolicy(new CookiePolicyOptions()
+    {
+        MinimumSameSitePolicy = SameSiteMode.Strict
+    });
+}
+
+
 
 //app.ConfigureBaseApplicationBuilders();
 app.ConfigureBaseEndpointBuilders();

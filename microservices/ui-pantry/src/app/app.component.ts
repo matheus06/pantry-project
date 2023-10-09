@@ -23,7 +23,6 @@ export class AppComponent implements OnInit {
     const { isAuthenticated, userData, accessToken, idToken, configId } = loginResponse;
     if(!isAuthenticated)
       this.oidcSecurityService.authorize();
-     console.log('authenticated')
   }
 
   logout() {
@@ -42,10 +41,13 @@ export class AppComponent implements OnInit {
         }),
       };
     });
-    this.http.get("https://localhost:1001/v1/items", httpOptions)
+
+    
+    this.http.get("https://localdev-tls.me/api-product/product", httpOptions)
     .subscribe((data:any) => {
       this.apiResponse = data;
       console.log("api result:", data);
-    })
+    });
+
    }
 }

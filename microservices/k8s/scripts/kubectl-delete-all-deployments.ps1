@@ -6,6 +6,7 @@ Process {
 
     function Remove-Deployments {
         kubectl delete -f ../files/pantry-ingress-service.yaml
+        kubectl delete -f ../files/pantry-ingress-service-no-rewrite.yaml
         kubectl delete -f ../files/pantry-manager-deployment.yaml
         kubectl delete -f ../files/product-manager-deployment.yaml
         kubectl delete -f ../files/recipe-manager-deployment.yaml

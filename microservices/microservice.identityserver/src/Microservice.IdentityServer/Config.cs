@@ -68,9 +68,9 @@ namespace Microservice.IdentityServer
                     RequirePkce = true,
                     RequireClientSecret = false,
 
-                    RedirectUris = { "http://localhost:4200" },
-                    PostLogoutRedirectUris = { "http://localhost:4200" },
-                    AllowedCorsOrigins = { "http://localhost:4200", "https://localhost:1001"},
+                    RedirectUris = { "http://localhost:4200", "https://localdev-tls.me" },
+                    PostLogoutRedirectUris = { "http://localhost:4200", "https://localdev-tls.me" },
+                    AllowedCorsOrigins = { "http://localhost:4200", "https://localhost:1001", "https://localdev-tls.me"},
 
                     // scopes that client has access to
                     AllowedScopes = { "openid", "profile", "recipe", "product", "pantry" }

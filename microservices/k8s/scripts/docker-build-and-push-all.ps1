@@ -27,7 +27,8 @@ Process {
         docker build  ../../microservice.identityserver/src/microservice.identityserver -t $RegistryName/identityserver:latest `
             --build-arg GITHUB_PACKAGES_USERNAME="$($GitHubPackagesCreds.GitHubUsername)" `
             --build-arg GITHUB_PACKAGES_TOKEN="$($GitHubPackagesCreds.GitHubToken)"
-        docker build  ../../ui-pantry -t $RegistryName/ui-pantry:latest
+        docker build  ../../ui-pantry -t $RegistryName/ui-pantry:latest `
+        --build-arg ENVIRONMENT="production" 
         Write-Output "build done"
     }
 

@@ -26,8 +26,6 @@ builder.Services.AddDaprClient();
 //Add IoC
 builder.Services.AddIoC();
 
-builder.Services.AddValidatorsFromAssemblyContaining<CreateProductCommandValidator>();
-
 //Health Checks
 builder.Services.AddHealthChecks()
     // Add a health check for a SQL Server database
@@ -37,8 +35,11 @@ builder.Services.AddHealthChecks()
         HealthStatus.Unhealthy)
     .AddCheck<DaprHealthCheck>("dapr-check");
 
-
+//GraphQL
 builder.Services.AddGraphQLServer().AddQueryType<ProductGraphQuery>().AddProjections().AddFiltering().AddSorting();
+
+//MediatR validators
+builder.Services.AddValidatorsFromAssemblyContaining<CreateProductCommandValidator>();
 
 var app = builder.Build();
 
@@ -46,19 +47,22 @@ app.ConfigureBaseApplicationBuilders();
 app.ConfigureBaseEndpointBuilders();
 
 // Configure the Minimal APIs
-//app.MapProduct().RequireAuthorization("ApiScope");
-app.MapProduct();
+app.MapProduct().RequireAuthorization("api_scope");
 
 //Initialize DB
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
 services.GetRequiredService<DbInitializer>().Run();
 
+//Auths
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapGraphQL();
+
 // Capture metrics about all received HTTP requests.
 //app.UseHttpMetrics();
 //app.MapMetrics();
-
-app.MapGraphQL();
 
 app.Run();
 

@@ -40,6 +40,7 @@ builder.Services.AddHealthChecks()
 //Health Check UI
 builder.Services.AddHealthChecksUI().AddInMemoryStorage();
 
+//MediatR validators
 builder.Services.AddValidatorsFromAssemblyContaining<PantryRequestValidator>();
 
 var app = builder.Build();
@@ -76,8 +77,6 @@ app.MapError();
 //Auths
 app.UseAuthentication();
 app.UseAuthorization();
-
-
 
 // Capture metrics about all received HTTP requests.
 //app.UseHttpMetrics();

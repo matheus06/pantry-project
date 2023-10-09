@@ -144,3 +144,6 @@ helm uninstall pantry-app . --namespace=pantry
   * Scheduler API => <http://pantrymanager-scheduler-api.localdev.me>
   * Hangfire => <http://pantrymanager-scheduler-api.localdev.me/hangfire>
   * HealthCheck => <http://pantrymanager-pantry-api.localdev.me/hc-ui>
+
+
+kubectl create secret tls ingress-cert --namespace pantry --key=ingress-tls.key --cert=ingress-tls.crt -o yaml
