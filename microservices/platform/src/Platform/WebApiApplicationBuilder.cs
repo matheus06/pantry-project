@@ -1,9 +1,8 @@
 using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Platform.Security;
-using Prometheus;
 using Serilog;
 using Serilog.Exceptions;
 using Serilog.Sinks.Elasticsearch;
@@ -54,12 +53,11 @@ public static class WebApiApplicationBuilder
         //Configure Authorization
         builder.Services.AddAuthorization(options =>
         {
-            options.AddPolicy("ApiScope", policy =>
-            {
-                policy.RequireAuthenticatedUser();
-                policy.RequireClaim(PolicyNames.ServiceScopes, serviceName ?? $"{Guid.NewGuid()}");
-            });
+            options.AddPolicy("ApiScope", CreatePolicy(serviceName));
+            
         });
+
+       
         
         // Configure Open API
         builder.Services.AddEndpointsApiExplorer();
@@ -114,10 +112,19 @@ public static class WebApiApplicationBuilder
         
     }
     
+    private static AuthorizationPolicy CreatePolicy(params string[] scopes)     
+    {
+        var authorizationPolicyBuilder = new AuthorizationPolicyBuilder();
+
+        authorizationPolicyBuilder.RequireAuthenticatedUser();
+        authorizationPolicyBuilder.RequireAssertion(context =>
+        {
+            return context.User.Claims.Any(c => c.Type.Equals("scope", StringComparison.OrdinalIgnoreCase) &&
+                                                 scopes.Contains(c.Value, StringComparer.Ordinal));
+        });
+        return authorizationPolicyBuilder.Build();
+    }
     
 
-    // Capture metrics about all received HTTP requests.
-
-  
-    
+   // Capture metrics about all received HTTP requests. 
 }
