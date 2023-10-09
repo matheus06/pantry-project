@@ -51,14 +51,9 @@ public static class WebApiApplicationBuilder
             });
 
         //Configure Authorization
-        builder.Services.AddAuthorization(options =>
-        {
-            options.AddPolicy("ApiScope", CreatePolicy(serviceName));
-            
-        });
+        builder.Services.AddAuthorizationBuilder()
+            .AddPolicy("api_scope", CreatePolicy(serviceName));
 
-       
-        
         // Configure Open API
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen(o => 
