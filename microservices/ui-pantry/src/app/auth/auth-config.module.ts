@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
               redirectUrl: window.location.origin,
               postLogoutRedirectUri: window.location.origin,
               clientId: 'angular-client',
-              scope: 'openid pantry',
+              scope: 'openid pantry product',
               responseType: 'code',
               silentRenew: false,
               useRefreshToken: false

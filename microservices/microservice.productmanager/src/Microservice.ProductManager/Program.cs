@@ -10,6 +10,7 @@ using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Platform;
 using Platform.Infra.Database;
 using Platform.Infra.Messaging;
+using Platform.Security;
 
 var builder = WebApiApplicationBuilder.Build<Program>(args);
 
@@ -47,7 +48,7 @@ app.ConfigureBaseApplicationBuilders();
 app.ConfigureBaseEndpointBuilders();
 
 // Configure the Minimal APIs
-app.MapProduct().RequireAuthorization("api_scope");
+app.MapProduct().RequireAuthorization(PolicyNames.ServiceScopes);
 
 //Initialize DB
 using var scope = app.Services.CreateScope();

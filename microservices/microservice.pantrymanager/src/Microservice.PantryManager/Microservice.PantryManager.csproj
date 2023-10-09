@@ -8,7 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Platform" Version="1.1.6" />
+        <PackageReference Include="Platform" Version="1.1.8" />
     </ItemGroup>
     
     <ItemGroup>
