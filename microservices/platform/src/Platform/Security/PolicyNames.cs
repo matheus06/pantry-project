@@ -2,4 +2,5 @@
 
 public static class PolicyNames
 {
+    public const string ServiceScopes = "ServiceScopes";
 }

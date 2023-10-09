@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Platform.Security;
 using Serilog;
 using Serilog.Exceptions;
 using Serilog.Sinks.Elasticsearch;
@@ -52,7 +53,7 @@ public static class WebApiApplicationBuilder
 
         //Configure Authorization
         builder.Services.AddAuthorizationBuilder()
-            .AddPolicy("api_scope", CreatePolicy(serviceName));
+            .AddPolicy(PolicyNames.ServiceScopes, CreatePolicy(serviceName));
 
         // Configure Open API
         builder.Services.AddEndpointsApiExplorer();
