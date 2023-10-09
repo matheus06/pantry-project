@@ -117,11 +117,11 @@ public static class WebApiApplicationBuilder
         var authorizationPolicyBuilder = new AuthorizationPolicyBuilder();
 
         authorizationPolicyBuilder.RequireAuthenticatedUser();
-        authorizationPolicyBuilder.RequireAssertion(context =>
-        {
-            return context.User.Claims.Any(c => c.Type.Equals("scope", StringComparison.OrdinalIgnoreCase) &&
-                                                 scopes.Contains(c.Value, StringComparer.Ordinal));
-        });
+        // authorizationPolicyBuilder.RequireAssertion(context =>
+        // {
+        //     return context.User.Claims.Any(c => c.Type.Equals("scope", StringComparison.OrdinalIgnoreCase) &&
+        //                                          scopes.Contains(c.Value, StringComparer.Ordinal));
+        // });
         return authorizationPolicyBuilder.Build();
     }
     
