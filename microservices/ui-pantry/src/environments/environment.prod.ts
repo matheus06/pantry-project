@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  identityUrl: 'https://localdev-tls.me/api-identity'
+  identityApiUrl: 'https://localdev-tls.me/api-identity',
+  productApiUrl:'https://localdev-tls.me/api-product'
 };

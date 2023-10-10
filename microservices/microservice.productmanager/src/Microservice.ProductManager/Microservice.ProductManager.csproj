@@ -8,7 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Platform" Version="1.1.9" />
+        <PackageReference Include="Platform" Version="1.1.10" />
     </ItemGroup>
 
     <ItemGroup>
@@ -24,5 +24,9 @@
       <PackageReference Include="HotChocolate.Data.EntityFramework" Version="13.5.1" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.4" />
     </ItemGroup>
+
+    <!-- <ItemGroup>
+      <ProjectReference Include="..\..\..\platform\src\Platform\Platform.csproj" />
+    </ItemGroup> -->
 
 </Project>

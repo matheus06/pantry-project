@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 @NgModule({
     imports: [AuthModule.forRoot({
         config: {
-              authority: `${environment.identityUrl}`,
+              authority: `${environment.identityApiUrl}`,
               redirectUrl: window.location.origin,
               postLogoutRedirectUri: window.location.origin,
               clientId: 'angular-client',

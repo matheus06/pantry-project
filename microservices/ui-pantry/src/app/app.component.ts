@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Token } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { LoginResponse, OidcSecurityService } from 'angular-auth-oidc-client';
+import { environment } from 'src/environments/environment';
+
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,7 @@ export class AppComponent implements OnInit {
   constructor(
     public oidcSecurityService: OidcSecurityService,
     public http: HttpClient) {}
+    public apiResponse : any;
 
   ngOnInit() {
     this.oidcSecurityService.checkAuth().subscribe((  loginResponse : LoginResponse) =>  this.handleLogin(loginResponse));
@@ -31,7 +33,7 @@ export class AppComponent implements OnInit {
     .subscribe((result: any) => console.log(result));
   }
 
-  callApi() {
+  callProductApi() {
     var httpOptions;
     const token = this.oidcSecurityService.getAccessToken().subscribe((token: any) => {
       httpOptions = {
@@ -42,8 +44,9 @@ export class AppComponent implements OnInit {
     });
 
     
-    this.http.get("https://localdev-tls.me/api-product/product", httpOptions)
+    this.http.get(`${environment.productApiUrl}/product`, httpOptions)
     .subscribe((data:any) => {
+      this.apiResponse = data;
       console.log("api result:", data);
     });
 
