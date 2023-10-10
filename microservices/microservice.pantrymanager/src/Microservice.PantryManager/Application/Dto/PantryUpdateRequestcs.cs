@@ -1,0 +1,8 @@
+﻿namespace Microservice.PantryManager.Application.Dto;
+
+public class PantryUpdateRequest
+{
+    public Guid Id { get; set; }
+    public string Name { get; set; }
+    public string Description { get; set; }
+}

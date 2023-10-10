@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <Nullable>disable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <RepositoryUrl>https://github.com/matheus06/pantry-project</RepositoryUrl>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Platform" Version="1.1.9" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Application\Services" />
+      <Folder Include="Domain\ValueObjects" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FluentResults" Version="3.15.2" />
+      <PackageReference Include="FluentValidation" Version="11.5.1" />
+      <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.5.1" />
+      <PackageReference Include="HotChocolate.AspNetCore" Version="13.5.1" />
+      <PackageReference Include="HotChocolate.Data.EntityFramework" Version="13.5.1" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.4" />
+    </ItemGroup>
+
+</Project>

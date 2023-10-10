@@ -1,0 +1,55 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pantry-ingress-service-no-rewrite
+  namespace: pantry
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+    ingressClassName: nginx
+    tls:
+    - hosts:
+      - localdev-tls.me
+      secretName: ingress-cert
+    rules:
+     - host: localdev-tls.me
+       http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: pantry-app-ui-pantry
+              port:
+                number: 80
+     - host: localdev-tls.me
+       http:
+        paths:
+        - path: /connect
+          pathType: Prefix
+          backend:
+            service:
+              name: pantry-app-identityserver
+              port:
+                number: 80
+        - path: /account
+          pathType: Prefix
+          backend:
+            service:
+              name: pantry-app-identityserver
+              port:
+                  number: 80
+        - path: /?code
+          pathType: Prefix
+          backend:
+            service:
+              name: pantry-app-identityserver
+              port:
+                  number: 80
+        - path: /.well-known
+          pathType: Prefix
+          backend:
+            service:
+              name: pantry-app-identityserver
+              port:
+                  number: 80
