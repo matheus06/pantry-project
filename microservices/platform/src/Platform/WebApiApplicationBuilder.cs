@@ -18,6 +18,12 @@ public static class WebApiApplicationBuilder
      
         var serviceName = builder.Configuration["MicroserviceSettings:Service"];
         
+        //CORS
+        builder.Services.AddCors(options => options.AddPolicy("ApiCorsPolicy", builder =>
+        {
+            builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+        }));
+
         //Serilog and ElasticSearch
         var elasticSearchUri = builder.Configuration["ElasticConfiguration:Uri"];
         builder.Host.UseSerilog((context, loggerConfiguration) =>
@@ -97,6 +103,7 @@ public static class WebApiApplicationBuilder
         app.UseSwagger();
         app.UseSwaggerUI();
         app.UseSerilogRequestLogging();
+        app.UseCors("ApiCorsPolicy");
     }
     
     public static void ConfigureBaseEndpointBuilders(this IEndpointRouteBuilder app)
