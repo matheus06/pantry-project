@@ -83,7 +83,9 @@ public static class WebApiApplicationBuilder
                     new string[] { }
                 }
             });
-            o.DocumentFilter<PathPrefixInsertDocumentFilter>($"/api-{serviceName}");
+            
+            if(builder.Environment.IsProduction())
+                o.DocumentFilter<PathPrefixInsertDocumentFilter>($"/api-{serviceName}");
         });
         
         return builder;
