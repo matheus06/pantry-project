@@ -5,6 +5,12 @@ Begin {
 Process {
 
     function Invoke-All-Deployments {
+        # dapr components
+        kubectl apply -f ../components/redis-pubsub-default.yaml
+        kubectl apply -f ../components/redis-state-default.yaml
+        kubectl apply -f ../components/redis-pubsub.yaml
+        kubectl apply -f ../components/redis-state.yaml
+
         kubectl apply -f ../files/pantry-namespace.yaml
         kubectl apply -f ../files/pantry-ingress-secret.yaml
         kubectl apply -f ../files/pantry-ingress-service.yaml
@@ -16,11 +22,6 @@ Process {
         kubectl apply -f ../files/identityserver-deployment.yaml
         kubectl apply -f ../files/ui-pantry-deployment.yaml
 
-        # dapr components
-        kubectl apply -f ../components/redis-pubsub-default.yaml
-        kubectl apply -f ../components/redis-state-default.yaml
-        kubectl apply -f ../components/redis-pubsub.yaml
-        kubectl apply -f ../components/redis-state.yaml
         Write-Output "apply done"
 
 

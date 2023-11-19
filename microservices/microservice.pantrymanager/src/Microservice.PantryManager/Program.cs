@@ -13,6 +13,9 @@ using Prometheus;
 
 var builder = WebApiApplicationBuilder.Build<Program>(args);
 
+// Add service defaults & Aspire components.
+builder.AddServiceDefaults();
+
 //SQL Server
 builder.Services.AddDbContext<PantryContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("PantryContext")));
@@ -54,21 +57,20 @@ app.UseHealthChecksUI(config => config.UIPath = "/hc-ui");
 // Configure the Minimal APIs
 app.MapPantry().RequireAuthorization("ApiScope");
 app.MapPantryOwner().RequireAuthorization("ApiScope");
-app.MapDaprSubscription();
+
 
 // Dapr will send serialized event object vs. being raw CloudEvent
 app.UseCloudEvents();
 // needed for Dapr pub/sub routing
 app.MapSubscribeHandler();
 
+app.MapDaprSubscription();
+
 //Initialize DB
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
 services.GetRequiredService<DbInitializer>().Run();
 
-// Capture metrics about all received HTTP requests.
-//app.UseHttpMetrics();
-//app.MapMetrics();
 
 // Error Handling
 app.UseExceptionHandler("/error");
@@ -77,10 +79,6 @@ app.MapError();
 //Auths
 app.UseAuthentication();
 app.UseAuthorization();
-
-// Capture metrics about all received HTTP requests.
-//app.UseHttpMetrics();
-//app.MapMetrics();
 
 app.Run();
 

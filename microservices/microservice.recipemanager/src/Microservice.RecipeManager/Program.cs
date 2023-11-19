@@ -11,6 +11,9 @@ using Prometheus;
 
 var builder = WebApiApplicationBuilder.Build<Program>(args);
 
+// Add service defaults & Aspire components.
+builder.AddServiceDefaults();
+
 //SQL Server
 builder.Services.AddDbContext<RecipeContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("RecipeContext")));

@@ -24,23 +24,23 @@ K8s:
 ### Requirements
 
 * Docker
-* Tye (for local DEBUG only)
 * Dapr
-* .Net 7
+* .Net 8
 * SQL
 
-### Run Locally using Tye
+### Run Locally using Aspire
 
-* Run SQLServer in container.
-
-```console
-   `docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=MyP@ssowrdDocker" -p 1433:1433 --name sqlserver --hostname sql -d mcr.microsoft.com/mssql/server:2022-latest`
-```
-
+* Install `SQL Server Express LocalDB`.
+   <https://learn.microsoft.com/en-us/sql/database-engine/configure-windows/sql-server-express-localdb?view=sql-server-ver16>
 * `winget install Dapr.CLI` => install dapr locally.
 * `dapr init` => Initialize Dapr in your local environment.
-* `build` the application.
-* `tye run` => run the services using the .NET csproj files in order to DEBUG.
+* Set aspire.AppHost `as Startup project and` run the application.
+
+### Get identity token
+
+```console
+curl -X POST -H "content-type: application/x-www-form-urlencoded" -H "Cache-Control: no-cache" -d 'client_id=test-client&client_secret=test-secret&grant_type=client_credentials&scope=product' -k "http://localhost:62249/connect/token"
+```
 
 * Urls
   * UI => <http://localhost:4200>
@@ -54,19 +54,19 @@ K8s:
   * Scheduler API => <http://localhost:61524/swagger>
   * Hangfire => <http://localhost:61524/hangfire>
   * HealthCheck => <http://localhost:58798/hc-ui>
-  * Identity Configuration => <https://localhost:50001/.well-known/openid-configuration>
+  * Identity Configuration => <http://localhost:62249/.well-known/openid-configuration>
 
-### Run in local k8s cluster
+### Run in local Docker k8s cluster
 
 * Requirements for k8s cluster
 
-If you dont have yet please run SQLServer in container.
+Run SQLServer in container.
 
 ```console
    `docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=MyP@ssowrdDocker" -p 1433:1433 --name sqlserver --hostname sql -d mcr.microsoft.com/mssql/server:2022-latest`
 ```
 
-Install ngnix
+Install ngnix ingress
 
 ```console
 helm upgrade --install ingress-nginx ingress-nginx  --repo https://kubernetes.github.io/ingress-nginx   --namespace ingress-nginx --create-namespace

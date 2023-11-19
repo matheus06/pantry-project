@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsAspireHost>true</IsAspireHost>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting" Version="8.0.0-preview.1.23557.2" />
+	<PackageReference Include="Aspire.Hosting.Dapr" Version="8.0.0-preview.1.23557.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\microservice.identityserver\src\Microservice.IdentityServer\Microservice.IdentityServer.csproj" />
+    <ProjectReference Include="..\..\microservice.pantrymanager\src\Microservice.PantryManager\Microservice.PantryManager.csproj" />
+    <ProjectReference Include="..\..\microservice.productmanager\src\Microservice.ProductManager\Microservice.ProductManager.csproj" />
+    <ProjectReference Include="..\..\microservice.recipemanager\src\Microservice.RecipeManager\Microservice.RecipeManager.csproj" />
+    <ProjectReference Include="..\..\microservice.scheduler\src\Microservice.Scheduler\Microservice.Scheduler.csproj" />
+  </ItemGroup>
+	
+</Project>
