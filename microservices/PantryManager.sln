@@ -3,25 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34310.174
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.PantryManager", "microservice.pantrymanager\src\Microservice.PantryManager\Microservice.PantryManager.csproj", "{816AFE3A-1F46-4AB7-B4C6-2921761EA521}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.Pantry", "microservice.pantrymanager\src\Microservice.PantryManager\Microservice.Pantry.csproj", "{816AFE3A-1F46-4AB7-B4C6-2921761EA521}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Platform", "platform\src\Platform\Platform.csproj", "{5C3B18CF-57BA-4550-85A2-C51286B87730}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.PantryManager.Test", "microservice.pantrymanager\test\Microservice.PantryManager.Test\Microservice.PantryManager.Test.csproj", "{8A0F5584-F173-451A-9983-886FBFEB8C8B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.Pantry.Test", "microservice.pantrymanager\test\Microservice.PantryManager.Test\Microservice.Pantry.Test.csproj", "{8A0F5584-F173-451A-9983-886FBFEB8C8B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4ACBFA30-8F3D-4F74-8E02-51E24AC6FACE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{BE45630D-3617-44BE-82D2-3AD98A1EFBC9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.RecipeManager", "microservice.recipemanager\src\Microservice.RecipeManager\Microservice.RecipeManager.csproj", "{FA55A0CE-723B-47CF-BF25-FDD2DAF149D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.Recipe", "microservice.recipemanager\src\Microservice.RecipeManager\Microservice.Recipe.csproj", "{FA55A0CE-723B-47CF-BF25-FDD2DAF149D6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.RecipeManager.Test", "microservice.recipemanager\test\Microservice.RecipeManager.Test\Microservice.RecipeManager.Test.csproj", "{D80150D3-A1B4-4209-85EF-CE5143EADF95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.Recipe.Test", "microservice.recipemanager\test\Microservice.RecipeManager.Test\Microservice.Recipe.Test.csproj", "{D80150D3-A1B4-4209-85EF-CE5143EADF95}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Platform.Test", "platform\test\Platform.Test\Platform.Test.csproj", "{F01F2729-7B71-4081-93CA-94AA2CB2BDAE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.ProductManager", "microservice.productmanager\src\Microservice.ProductManager\Microservice.ProductManager.csproj", "{68D58837-BFD2-427B-BDB8-14B4BB2742C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.Product", "microservice.productmanager\src\Microservice.ProductManager\Microservice.Product.csproj", "{68D58837-BFD2-427B-BDB8-14B4BB2742C8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.ProductManager.Test", "microservice.productmanager\test\Microservice.ProductManager.Test\Microservice.ProductManager.Test.csproj", "{DE4D164C-B512-4B5B-875F-CAE259D7CD17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.Product.Test", "microservice.productmanager\test\Microservice.ProductManager.Test\Microservice.Product.Test.csproj", "{DE4D164C-B512-4B5B-875F-CAE259D7CD17}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.IdentityServer", "microservice.identityserver\src\Microservice.IdentityServer\Microservice.IdentityServer.csproj", "{668CFC5C-AD4C-4639-A09A-473DE71E4B9C}"
 EndProject
@@ -31,7 +31,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.Scheduler", "m
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.Scheduler.Test", "microservice.scheduler\test\Microservice.Scheduler.Test\Microservice.Scheduler.Test.csproj", "{A82F2B46-5EF6-4345-B8E6-1C0366D846B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aspire.AppHost", "aspire\aspire.AppHost\aspire.AppHost.csproj", "{82C79DB8-D510-4BA2-9269-F60C9FD66B55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "aspire.AppHost", "aspire\aspire.AppHost\aspire.AppHost.csproj", "{82C79DB8-D510-4BA2-9269-F60C9FD66B55}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "aspire.ServiceDefaults", "aspire\aspire.ServiceDefaults\aspire.ServiceDefaults.csproj", "{28B309D7-8CEA-4402-85A7-7FE379D48EA8}"
 EndProject

@@ -44,6 +44,7 @@ public static class Extensions
             {
                 metrics.AddRuntimeInstrumentation()
                        .AddBuiltInMeters();
+                metrics.AddMeter("ProductManager");
             })
             .WithTracing(tracing =>
             {

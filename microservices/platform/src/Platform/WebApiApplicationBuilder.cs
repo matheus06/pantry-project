@@ -26,6 +26,7 @@ public static class WebApiApplicationBuilder
 
         //Serilog and ElasticSearch
         var elasticSearchUri = builder.Configuration["ElasticConfiguration:Uri"];
+        var otlpEndpoint = builder.Configuration["OTEL_EXPORTER_OTLP_ENDPOINT"];
         builder.Host.UseSerilog((context, loggerConfiguration) =>
         {
             loggerConfiguration.
@@ -33,7 +34,22 @@ public static class WebApiApplicationBuilder
                     writeTo.Console(outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss,fff} [{ThreadId}] {Level:u4} {Message:lj}{NewLine}{Exception}"))
                 .Enrich.WithExceptionDetails()
                 .Enrich.WithThreadId();
-    
+
+
+            if (!string.IsNullOrEmpty(otlpEndpoint))
+            {
+                loggerConfiguration.WriteTo.OpenTelemetry(options =>
+                {
+                    options.Endpoint = otlpEndpoint;
+                    options.ResourceAttributes = new Dictionary<string, object>
+                    {
+                        ["service.name"] = $"microservice.{serviceName}-serilog"
+                    };
+                }
+                );
+            }
+            
+
             if (!string.IsNullOrEmpty(elasticSearchUri))
             {
                 loggerConfiguration.WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(elasticSearchUri))

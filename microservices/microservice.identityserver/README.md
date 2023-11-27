@@ -5,3 +5,5 @@
 * Duende IdentityServer
 
 ## Tech Details
+
+* `.Net 8`

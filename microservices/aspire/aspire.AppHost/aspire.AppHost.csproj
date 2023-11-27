@@ -15,9 +15,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\microservice.identityserver\src\Microservice.IdentityServer\Microservice.IdentityServer.csproj" />
-    <ProjectReference Include="..\..\microservice.pantrymanager\src\Microservice.PantryManager\Microservice.PantryManager.csproj" />
-    <ProjectReference Include="..\..\microservice.productmanager\src\Microservice.ProductManager\Microservice.ProductManager.csproj" />
-    <ProjectReference Include="..\..\microservice.recipemanager\src\Microservice.RecipeManager\Microservice.RecipeManager.csproj" />
+    <ProjectReference Include="..\..\microservice.pantrymanager\src\Microservice.PantryManager\Microservice.Pantry.csproj" />
+    <ProjectReference Include="..\..\microservice.productmanager\src\Microservice.ProductManager\Microservice.Product.csproj" />
+    <ProjectReference Include="..\..\microservice.recipemanager\src\Microservice.RecipeManager\Microservice.Recipe.csproj" />
     <ProjectReference Include="..\..\microservice.scheduler\src\Microservice.Scheduler\Microservice.Scheduler.csproj" />
   </ItemGroup>
 	

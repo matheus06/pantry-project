@@ -1,6 +1,7 @@
 ﻿using FluentResults;
 using MediatR;
 using Microservice.ProductManager.Application.Dto;
+using Microservice.ProductManager.Application.Metrics;
 using Microservice.ProductManager.Domain;
 using Microservice.ProductManager.Infra.Specifications;
 using Platform.ErrorHandling.ApplicationErrors;
@@ -23,10 +24,12 @@ public class CreateProductCommand : IRequest<FluentResults.Result<ProductRespons
 public class CreateRecipeCommandHandler : IRequestHandler<CreateProductCommand, FluentResults.Result<ProductResponse>>
 {
     private readonly IRepository<Product> _productRepository;
-    
-    public CreateRecipeCommandHandler(IRepository<Product> productRepository)
+    private readonly ProductManagerMetrics _productManagerMetrics;
+
+    public CreateRecipeCommandHandler(IRepository<Product> productRepository, ProductManagerMetrics productManagerMetrics)
     {
         _productRepository = productRepository;
+        _productManagerMetrics = productManagerMetrics;
     }
     
     public async Task<FluentResults.Result<ProductResponse>> Handle(CreateProductCommand command, CancellationToken cancellationToken)
@@ -37,7 +40,9 @@ public class CreateRecipeCommandHandler : IRequestHandler<CreateProductCommand, 
         
         var product = Mapper.MapToProduct(command);
         await _productRepository.AddAsync(product, cancellationToken);
-        
+
+        _productManagerMetrics.ProductCounter.Add(1, new KeyValuePair<string, object?>("Name", command.Name));
+
         return Result.Ok(Mapper.MapToProductResponse(product));
     }
 }

@@ -20,7 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\Microservice.PantryManager\Microservice.PantryManager.csproj" />
+      <ProjectReference Include="..\..\src\Microservice.PantryManager\Microservice.Pantry.csproj" />
     </ItemGroup>
 
 </Project>

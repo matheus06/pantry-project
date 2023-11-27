@@ -1,0 +1,28 @@
+@hostname=localhost
+@productPort=40466
+@identityPort=62249
+@identityHost={{hostname}}:{{identityPort}}
+@productHost={{hostname}}:{{productPort}}
+@scope=product
+
+POST http://{{identityHost}}/connect/token
+Content-type: application/x-www-form-urlencoded
+Cache-Control: no-cache
+
+client_id=test-client&client_secret=test-secret&grant_type=client_credentials&scope={{scope}}
+
+###
+
+@token=eyJhbGciOiJSUzI1NiIsImtpZCI6IkRGRUZFQkIxMDhDODkxMkQ5NTEwQzlFQjZFNkZCOTZCIiwidHlwIjoiYXQrand0In0.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjYyMjQ5IiwibmJmIjoxNzAxMDI0NTg5LCJpYXQiOjE3MDEwMjQ1ODksImV4cCI6MTcwMTAyODE4OSwic2NvcGUiOlsicHJvZHVjdCJdLCJjbGllbnRfaWQiOiJ0ZXN0LWNsaWVudCIsImp0aSI6IjE3RjdBNzM5OUJFMTM3QUExMzIyQzcyNTZGN0U3ODFDIn0.rEizNTLTEdD4-JfIZkD6P_bJHRefA5pMsUkxG9n0fkPCx0ynk94NKaXTJdiGiaxpDkRtK0INIgVGeS6IwZZpRZWEmnBdMn2L4-r1wIYOi5H8s-2S2VNDLydVFJ4tRPplZFxJGgeijy5yRhtBARjOYX6j6TrJvgPagoDzLcJs4Yp8xuvAXMk_xqRCWgY1BlWzgNKogrRvQf8Wf3oBkg42M-Du-sYD5PIyi_SESGDLcATZYY8Q5bstC6TYKmsxoSbh-hhZhm86P3occBIUEIg7IaSRojsZd1d0wmOaVHM0rlL8AHuVvz1S-vd8bXLUeH49SgIMY-rp22jU_BZRXd96GA
+
+###
+
+POST http://{{productHost}}/product
+accept: */*
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "string223",
+  "description": "string2"
+}

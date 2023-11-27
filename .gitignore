@@ -353,5 +353,4 @@ MigrationBackup/
 # Tye
 .tye/
 
-docs/Technical.md
-docs/docker-compose.yml
+docs/*

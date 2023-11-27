@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microservice.ProductManager.Application.Behaviors;
+using Microservice.ProductManager.Application.Metrics;
 using Microservice.ProductManager.Domain;
 using Microservice.ProductManager.Infra.Database;
 using Platform.Infra.Database;
@@ -25,6 +26,9 @@ public static class DependencyInjection
 
         serviceCollection.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
         
+        //Metric
+        serviceCollection.AddSingleton<ProductManagerMetrics>();
+
         return serviceCollection;
     }
 }

@@ -4,7 +4,7 @@
 
 ## Tech Details
 
-* `.Net 7`
+* `.Net 8`
 * Domain Layer using `Exceptions`
 * App Layer using `FluentResult` and `Error Flow Control`.
 * Input validation using `FluentValidation`.

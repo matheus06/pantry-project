@@ -58,13 +58,15 @@ app.UseHealthChecksUI(config => config.UIPath = "/hc-ui");
 app.MapPantry().RequireAuthorization("ApiScope");
 app.MapPantryOwner().RequireAuthorization("ApiScope");
 
+//Dapr Sub Minimal Api
+var pubSubName = builder.Configuration["PubSubName"];
+app.MapDaprSubscription(pubSubName);
 
 // Dapr will send serialized event object vs. being raw CloudEvent
 app.UseCloudEvents();
 // needed for Dapr pub/sub routing
 app.MapSubscribeHandler();
 
-app.MapDaprSubscription();
 
 //Initialize DB
 using var scope = app.Services.CreateScope();

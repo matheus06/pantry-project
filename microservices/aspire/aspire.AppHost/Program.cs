@@ -4,13 +4,13 @@ var builder = DistributedApplication.CreateBuilder(args);
 
 builder.AddDapr();
 
-builder.AddProject<Projects.Microservice_PantryManager>("microservice.pantrymanager")
+builder.AddProject<Projects.Microservice_Pantry>("microservice.pantry")
     .WithDaprSidecar("daprpantrymanager");
 
-builder.AddProject<Projects.Microservice_ProductManager>("microservice.productmanager")
+builder.AddProject<Projects.Microservice_Product>("microservice.product")
     .WithDaprSidecar("daprproductmanager");
 
-builder.AddProject<Projects.Microservice_RecipeManager>("microservice.recipemanager")
+builder.AddProject<Projects.Microservice_Recipe>("microservice.recipe")
     .WithDaprSidecar("daprrecipemanager");
 
 builder.AddProject<Projects.Microservice_Scheduler>("microservice.scheduler")

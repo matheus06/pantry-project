@@ -23,7 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\Microservice.RecipeManager\Microservice.RecipeManager.csproj" />
+      <ProjectReference Include="..\..\src\Microservice.RecipeManager\Microservice.Recipe.csproj" />
     </ItemGroup>
 
 </Project>

@@ -43,7 +43,10 @@ app.ConfigureBaseEndpointBuilders();
 
 // Configure the Minimal APIs
 app.MapRecipe().RequireAuthorization("ApiScope");
-app.MapSubscription();
+
+//Dapr Sub Minimal Api
+var pubSubName = builder.Configuration["PubSubName"];
+app.MapSubscription(pubSubName);
 
 // Dapr will send serialized event object vs. being raw CloudEvent
 app.UseCloudEvents();

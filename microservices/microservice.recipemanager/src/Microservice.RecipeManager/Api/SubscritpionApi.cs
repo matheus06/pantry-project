@@ -1,19 +1,18 @@
-﻿using Dapr;
-using Platform.Domain.Shared.IntegrationEvents;
+﻿using Platform.Domain.Shared.IntegrationEvents;
 
 namespace Microservice.RecipeManager.Api;
 
 internal static class SubscriptionApi
 {
-    public static RouteGroupBuilder MapSubscription(this IEndpointRouteBuilder routes)
+    public static RouteGroupBuilder MapSubscription(this IEndpointRouteBuilder routes, string pubSubName)
     {
-        const string daprPubSubName = "pubsub";
-        
+        string daprPubSubName = Environment.GetEnvironmentVariable("PUBSUB_NAME") ?? pubSubName ?? "pubsub";
+
         var group = routes.MapGroup("/subscription");
         group.WithTags("Subscription");
  
         // Dapr subscription in /dapr/subscribe sets up this route
-        group.MapPost($"/{nameof(ProductCreatedIntegrationEvent)}", [Topic(daprPubSubName, nameof(ProductCreatedIntegrationEvent))] (ProductCreatedIntegrationEvent productCreatedIntegrationEvent) => {
+        group.MapPost($"/{nameof(ProductCreatedIntegrationEvent)}", (ProductCreatedIntegrationEvent productCreatedIntegrationEvent) => {
             Console.WriteLine("ProductCreatedIntegrationEvent received => " +
                               $"EventId: {productCreatedIntegrationEvent.Id} " +
                               $"CreationDate: {productCreatedIntegrationEvent.CreationDate} " +
@@ -21,7 +20,7 @@ internal static class SubscriptionApi
                               $"ProductName: {productCreatedIntegrationEvent.ProductName} " +
                               $"ProductDescription:  {productCreatedIntegrationEvent.ProductDescription}");
             return Results.Ok(productCreatedIntegrationEvent);
-        }).ExcludeFromDescription();
+        }).ExcludeFromDescription().WithTopic(daprPubSubName, nameof(ProductCreatedIntegrationEvent));
         
         return group;
     }
